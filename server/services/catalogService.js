@@ -177,6 +177,11 @@ async function fetchGoogleShoppingSerper(query, country = 'us') {
     const products = [];
     for (const item of shoppingItems) {
       const rawPrice = String(item.price || '');
+      // Skip monthly installment plans
+      if (rawPrice.toLowerCase().includes('/mo') || rawPrice.toLowerCase().includes('month')) {
+        continue;
+      }
+
       const numMatch = rawPrice.replace(/[^\d.]/g, '');
       const priceVal = parseFloat(numMatch);
       if (isNaN(priceVal) || priceVal <= 0) continue;
@@ -193,7 +198,7 @@ async function fetchGoogleShoppingSerper(query, country = 'us') {
       }
 
       products.push({
-        id: `serp-${item.position || Math.random().toString(36).substring(7)}`,
+        id: `serp-${item.productId || item.position || Math.random().toString(36).substring(7)}`,
         name: item.title,
         category: 'Google Shopping',
         brand: item.source || 'Verified Merchant',
@@ -202,17 +207,17 @@ async function fetchGoogleShoppingSerper(query, country = 'us') {
         rating: Number((item.rating || 4.6).toFixed(1)),
         reviewCount: item.ratingCount || 120,
         specs: {
-          store: item.source || 'Online Store',
-          delivery: item.delivery || 'Standard Shipping',
+          merchant: item.source || 'Online Store',
+          delivery: item.delivery || 'Fast Tracked Shipping',
           condition: 'Brand New',
         },
         highlights: [
           `Available from ${item.source || 'top retailers'} via Google Shopping`,
-          item.delivery || 'Fast tracked shipping',
+          item.delivery || 'In-stock and ready for dispatch',
           'Live market price comparison',
         ],
-        pros: ['Live merchant pricing', `Sold by ${item.source || 'Verified Retailer'}`],
-        cons: ['Stock dependent on merchant availability'],
+        pros: ['Live Google Shopping pricing', `Verified Merchant: ${item.source || 'Top Retailer'}`],
+        cons: ['Subject to merchant availability'],
         bestFor: item.title,
         imageUrl: item.imageUrl || getCategoryImage(query),
         inStock: true,
