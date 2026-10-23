@@ -27,8 +27,24 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Sidebar & Profile Modal State
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    try {
+      const saved = localStorage.getItem('agentpay_sidebar_open');
+      return saved !== null ? JSON.parse(saved) : true;
+    } catch {
+      return true;
+    }
+  });
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  // Save sidebar preference
+  useEffect(() => {
+    try {
+      localStorage.setItem('agentpay_sidebar_open', JSON.stringify(isSidebarOpen));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [isSidebarOpen]);
 
   // Chat Sessions History (persisted in localStorage)
   const [sessions, setSessions] = useState(() => {
@@ -255,6 +271,7 @@ export default function App() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          isSidebarOpen={isSidebarOpen}
           onOpenProfile={() => setIsProfileOpen(true)}
           orderCount={purchaseHistory.length}
         />

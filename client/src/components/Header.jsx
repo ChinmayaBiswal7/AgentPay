@@ -1,10 +1,11 @@
 import React from 'react';
-import { Bot, ShoppingBag, Layers, PanelLeft, User, ShieldCheck } from 'lucide-react';
+import { Bot, ShoppingBag, Layers, PanelLeft, PanelLeftClose, User, ShieldCheck } from 'lucide-react';
 
 export default function Header({
   activeTab,
   setActiveTab,
   onToggleSidebar,
+  isSidebarOpen,
   onOpenProfile,
   orderCount = 0,
 }) {
@@ -16,10 +17,14 @@ export default function Header({
           <div className="flex items-center space-x-3">
             <button
               onClick={onToggleSidebar}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
-              title="Toggle Chat History & Profile"
+              className={`p-2 rounded-xl transition-all ${
+                isSidebarOpen
+                  ? 'bg-blue-600/20 text-sky-400 border border-blue-500/30'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
+              }`}
+              title={isSidebarOpen ? 'Collapse Sidebar' : 'Expand Sidebar'}
             >
-              <PanelLeft className="w-5 h-5" />
+              {isSidebarOpen ? <PanelLeftClose className="w-5 h-5" /> : <PanelLeft className="w-5 h-5" />}
             </button>
 
             <div className="flex items-center space-x-2">
