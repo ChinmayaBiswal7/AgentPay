@@ -1,0 +1,348 @@
+[
+  {
+    "id": "lap-01",
+    "name": "Lenovo ThinkBook 15 Gen 4",
+    "category": "Laptops",
+    "brand": "Lenovo",
+    "price": 649.99,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviewCount": 184,
+    "specs": {
+      "ram": "16 GB DDR4",
+      "storage": "512 GB NVMe SSD",
+      "cpu": "Intel Core i5-1235U (10-core)",
+      "batteryLife": "8.5 hours",
+      "display": "15.6\" FHD Anti-Glare (1920x1080)",
+      "weight": "1.7 kg (3.75 lbs)",
+      "os": "Windows 11 Pro"
+    },
+    "highlights": [
+      "Generous 16 GB RAM for multitasking and IDEs",
+      "Spacious numpad keyboard with comfortable key travel",
+      "Solid dual-fan cooling under compilation loads"
+    ],
+    "pros": ["Outstanding value for developers", "16GB RAM out of the box", "Comfortable keyboard for coding"],
+    "cons": ["Display max brightness is 300 nits (indoor focused)", "Plastic-aluminum hybrid body"],
+    "bestFor": "Programming, software engineering, and multi-tab development under $700",
+    "imageUrl": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 15
+  },
+  {
+    "id": "lap-02",
+    "name": "Acer Aspire 5 Pro Developer Edition",
+    "category": "Laptops",
+    "brand": "Acer",
+    "price": 589.99,
+    "currency": "USD",
+    "rating": 4.4,
+    "reviewCount": 128,
+    "specs": {
+      "ram": "16 GB DDR4",
+      "storage": "512 GB PCIe SSD",
+      "cpu": "AMD Ryzen 5 5625U (6-core/12-thread)",
+      "batteryLife": "7.5 hours",
+      "display": "15.6\" IPS Full HD",
+      "weight": "1.78 kg (3.92 lbs)",
+      "os": "Windows 11 Home"
+    },
+    "highlights": [
+      "Budget-friendly price tag well under $600",
+      "Ryzen 5 high multithreaded performance",
+      "Upgradable RAM slot"
+    ],
+    "pros": ["Lowest price with 16 GB RAM", "Fast multi-core compilation", "Good selection of ports (USB-C + HDMI)"],
+    "cons": ["Average webcam quality (720p)", "Battery life slightly lower than ThinkBook"],
+    "bestFor": "Budget-conscious computer science students and web developers",
+    "imageUrl": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 22
+  },
+  {
+    "id": "lap-03",
+    "name": "Dell Inspiron 14 5420",
+    "category": "Laptops",
+    "brand": "Dell",
+    "price": 699.00,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviewCount": 215,
+    "specs": {
+      "ram": "16 GB DDR4 3200MHz",
+      "storage": "512 GB M.2 NVMe SSD",
+      "cpu": "Intel Core i7-1255U (10-core)",
+      "batteryLife": "9.5 hours",
+      "display": "14.0\" 16:10 FHD+ (1920x1200)",
+      "weight": "1.54 kg (3.4 lbs)",
+      "os": "Windows 11 Home"
+    },
+    "highlights": [
+      "Taller 16:10 aspect ratio reveals more lines of code",
+      "Intel Core i7 processor handles complex builds",
+      "Compact, lightweight portable chassis"
+    ],
+    "pros": ["16:10 aspect ratio is superior for reading code", "Lightweight and highly portable", "Excellent battery life (9.5h)"],
+    "cons": ["Hits the exact $700 budget ceiling", "Fans spin up audibly under max benchmark stress"],
+    "bestFor": "Mobile developers and college students wanting a portable 14-inch form factor",
+    "imageUrl": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 9
+  },
+  {
+    "id": "lap-04",
+    "name": "Apple MacBook Air (M1)",
+    "category": "Laptops",
+    "brand": "Apple",
+    "price": 749.99,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviewCount": 1420,
+    "specs": {
+      "ram": "8 GB Unified Memory",
+      "storage": "256 GB SSD",
+      "cpu": "Apple M1 chip (8-core)",
+      "batteryLife": "18 hours",
+      "display": "13.3\" Retina Display (2560x1600)",
+      "weight": "1.29 kg (2.8 lbs)",
+      "os": "macOS Sonoma"
+    },
+    "highlights": [
+      "Industry-leading 18-hour battery longevity",
+      "Silent, fanless premium aluminum design",
+      "Vibrant high-resolution Retina display"
+    ],
+    "pros": ["Best-in-class battery life", "Completely silent operation", "Superb trackpad and build"],
+    "cons": ["Over $700 budget ($749.99)", "Base configuration only has 8 GB RAM and 256 GB SSD"],
+    "bestFor": "iOS/macOS development and battery life prioritizers (requires slightly higher budget)",
+    "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 8
+  },
+  {
+    "id": "lap-05",
+    "name": "ASUS Zenbook 14 OLED",
+    "category": "Laptops",
+    "brand": "ASUS",
+    "price": 849.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 94,
+    "specs": {
+      "ram": "16 GB LPDDR5",
+      "storage": "1 TB NVMe SSD",
+      "cpu": "Intel Core Ultra 5 125H",
+      "batteryLife": "11 hours",
+      "display": "14\" 2.8K 120Hz OLED (2880x1800)",
+      "weight": "1.28 kg (2.82 lbs)",
+      "os": "Windows 11 Home"
+    },
+    "highlights": [
+      "Stunning 2.8K 120Hz OLED screen",
+      "Large 1TB SSD for massive container images",
+      "Latest Intel Core Ultra AI processor"
+    ],
+    "pros": ["Breathtaking OLED screen", "Massive 1TB storage", "Super lightweight"],
+    "cons": ["Significantly exceeds $700 budget ($849.99)"],
+    "bestFor": "Premium developers willing to stretch budget for OLED display and 1TB storage",
+    "imageUrl": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 6
+  },
+  {
+    "id": "aud-01",
+    "name": "Sony WH-1000XM4 Wireless Noise-Cancelling Headphones",
+    "category": "Audio",
+    "brand": "Sony",
+    "price": 278.00,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 3410,
+    "specs": {
+      "batteryLife": "30 hours",
+      "anc": "Dual Noise Sensor Industry-leading ANC",
+      "connection": "Bluetooth 5.0, Multipoint",
+      "weight": "254 g",
+      "charging": "USB-C Fast Charging (10 min = 5 hrs)"
+    },
+    "highlights": [
+      "Industry benchmark Active Noise Cancelling",
+      "Multipoint connects to laptop and phone simultaneously",
+      "Plush headband for all-day focus sessions"
+    ],
+    "pros": ["Exceptional noise cancellation", "30-hour battery", "Multipoint device pairing"],
+    "cons": ["Mic quality in noisy cafes is moderate"],
+    "bestFor": "Programmers and remote workers needing deep acoustic isolation",
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 19
+  },
+  {
+    "id": "aud-02",
+    "name": "Anker Soundcore Space One ANC",
+    "category": "Audio",
+    "brand": "Anker",
+    "price": 99.99,
+    "currency": "USD",
+    "rating": 4.5,
+    "reviewCount": 850,
+    "specs": {
+      "batteryLife": "40 hours with ANC (55 hours without)",
+      "anc": "Adaptive Active Noise Cancelling",
+      "connection": "Bluetooth 5.3, LDAC Hi-Res",
+      "weight": "260 g",
+      "charging": "USB-C Fast Charge"
+    },
+    "highlights": [
+      "Remarkable 2X voice reduction technology under $100",
+      "Huge 40-hour ANC battery endurance",
+      "Comfortable 8° rotating earcups"
+    ],
+    "pros": ["Unmatched price-to-performance ratio", "40-hour ANC battery", "Hi-Res LDAC support"],
+    "cons": ["Bass is punchy out of the box (requires companion app EQ)"],
+    "bestFor": "High-value focus headphones under $100",
+    "imageUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 35
+  },
+  {
+    "id": "aud-03",
+    "name": "Bose QuietComfort 45",
+    "category": "Audio",
+    "brand": "Bose",
+    "price": 229.00,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviewCount": 1920,
+    "specs": {
+      "batteryLife": "24 hours",
+      "anc": "Acoustic Noise Cancelling (Quiet/Aware)",
+      "connection": "Bluetooth 5.1",
+      "weight": "240 g",
+      "charging": "USB-C"
+    },
+    "highlights": [
+      "Legendary Bose comfort with featherweight earcups",
+      "Simple tactile physical buttons",
+      "Clear voice call pickup for standups"
+    ],
+    "pros": ["Lightest, most comfortable fit on the market", "Crisp vocal clarity", "Physical buttons avoid accidental touches"],
+    "cons": ["Cannot turn ANC completely off (only switch between Quiet and Aware)"],
+    "bestFor": "All-day comfort during long coding and meeting sessions",
+    "imageUrl": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 14
+  },
+  {
+    "id": "mon-01",
+    "name": "Dell UltraSharp 27 4K USB-C Hub Monitor (U2723QE)",
+    "category": "Monitors",
+    "brand": "Dell",
+    "price": 469.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 640,
+    "specs": {
+      "display": "27\" 4K IPS Black (3840 x 2160)",
+      "refreshRate": "60 Hz",
+      "ports": "USB-C 90W PD, RJ45 Ethernet, DisplayPort, HDMI, 5x USB-A",
+      "contrast": "2000:1 contrast ratio",
+      "stand": "Fully adjustable (height, tilt, swivel, pivot)"
+    },
+    "highlights": [
+      "IPS Black technology with 2000:1 deep contrast",
+      "One-cable laptop dock with 90W Power Delivery and Ethernet",
+      "Built-in KVM switch to control two PCs with one keyboard"
+    ],
+    "pros": ["Razor sharp text scaling", "Eliminates desk cable clutter", "Superb ergonomic stand"],
+    "cons": ["60Hz refresh rate (not for high-FPS gaming)"],
+    "bestFor": "Professional developer desk setups wanting crisp text and clean single-cable docking",
+    "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 11
+  },
+  {
+    "id": "mon-02",
+    "name": "LG UltraGear 27\" QHD Gaming & Productivity Monitor",
+    "category": "Monitors",
+    "brand": "LG",
+    "price": 229.99,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviewCount": 1120,
+    "specs": {
+      "display": "27\" QHD (2560 x 1440) Nano IPS",
+      "refreshRate": "165 Hz (1ms response)",
+      "ports": "2x HDMI 2.0, DisplayPort 1.4, Headphone out",
+      "hdr": "HDR10 with sRGB 99%",
+      "stand": "Tilt, height, pivot adjustable"
+    },
+    "highlights": [
+      "Silky smooth 165Hz refresh rate reduces eye fatigue",
+      "Sharp 1440p resolution provides 77% more screen space than 1080p",
+      "High color accuracy Nano IPS panel"
+    ],
+    "pros": ["Superb value under $250", "Ultra-fluid 165Hz scrolling", "Sharp 1440p resolution"],
+    "cons": ["No USB-C Power Delivery port"],
+    "bestFor": "Dual-purpose work & gaming setups on a budget",
+    "imageUrl": "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 20
+  },
+  {
+    "id": "acc-01",
+    "name": "Logitech MX Master 3S Wireless Performance Mouse",
+    "category": "Accessories",
+    "brand": "Logitech",
+    "price": 99.99,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviewCount": 4200,
+    "specs": {
+      "sensor": "8000 DPI Darkfield (works on glass)",
+      "scroll": "MagSpeed Electromagnetic Scrolling (1000 lines/sec)",
+      "battery": "70 days on full charge (USB-C)",
+      "clicks": "Quiet click switches (90% noise reduction)",
+      "connectivity": "Bluetooth Low Energy & Logi Bolt"
+    },
+    "highlights": [
+      "MagSpeed scroll wheel jumps through thousands of code lines effortlessly",
+      "Near-silent clicks for quiet shared offices",
+      "Thumb wheel for horizontal code editor panning"
+    ],
+    "pros": ["Ergonomic wrist posture", "Horizontal thumb scroll for wide codebases", "70-day battery life"],
+    "cons": ["Right-handed only"],
+    "bestFor": "Daily software development, navigation, and productivity",
+    "imageUrl": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 40
+  },
+  {
+    "id": "acc-02",
+    "name": "Keychron K2 Pro Wireless Mechanical Keyboard",
+    "category": "Accessories",
+    "brand": "Keychron",
+    "price": 109.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 980,
+    "specs": {
+      "layout": "75% Compact (84 keys)",
+      "switches": "Keychron K Pro Red (Linear, Pre-lubed)",
+      "connectivity": "Bluetooth 5.1 & USB-C wired",
+      "programmability": "QMK/VIA custom keymap remapping",
+      "keycaps": "OSA Profile double-shot PBT keycaps"
+    },
+    "highlights": [
+      "Fully remappable keys via web browser using QMK/VIA",
+      "Hot-swappable socket to swap switches without soldering",
+      "Mac and Windows compatible with included keycaps"
+    ],
+    "pros": ["Superb tactile typing experience", "Compact desk-saving 75% footprint", "QMK/VIA customization"],
+    "cons": ["Relatively tall profile (wrist rest recommended)"],
+    "bestFor": "Typing enthusiasts, programmers, and Linux/Mac power users",
+    "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 25
+  }
+]
