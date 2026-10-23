@@ -41,24 +41,13 @@ export default function Sidebar({
         <div className="w-64 flex flex-col h-full">
           {/* Top Header & New Chat Button */}
           <div className="p-3.5 border-b border-slate-800/80 space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                  <Zap className="w-4 h-4" />
-                </div>
-                <span className="font-extrabold text-white text-base tracking-tight">
-                  Agent<span className="text-sky-400">Pay</span>
-                </span>
+            <div className="flex items-center space-x-2.5">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                <Zap className="w-4 h-4" />
               </div>
-
-              {/* Close Button inside Sidebar */}
-              <button
-                onClick={onToggle}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-                title="Collapse sidebar"
-              >
-                <PanelLeftClose className="w-4 h-4" />
-              </button>
+              <span className="font-extrabold text-white text-base tracking-tight">
+                Agent<span className="text-sky-400">Pay</span>
+              </span>
             </div>
 
             <button
