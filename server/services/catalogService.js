@@ -149,8 +149,88 @@ function isAccidentalAccessory(productName, userQuery) {
 }
 
 /**
+ * Query Google Shopping via Serper.dev API if SERPER_API_KEY is configured
+ */
+async function fetchGoogleShoppingSerper(query, country = 'us') {
+  const apiKey = process.env.SERPER_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const res = await fetch('https://google.serper.dev/shopping', {
+      method: 'POST',
+      headers: {
+        'X-API-KEY': apiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        q: query,
+        gl: country,
+        hl: 'en',
+        num: 15,
+      }),
+    });
+
+    if (!res.ok) return null;
+    const data = await res.json();
+    const shoppingItems = data.shopping || [];
+
+    const products = [];
+    for (const item of shoppingItems) {
+      const rawPrice = String(item.price || '');
+      const numMatch = rawPrice.replace(/[^\d.]/g, '');
+      const priceVal = parseFloat(numMatch);
+      if (isNaN(priceVal) || priceVal <= 0) continue;
+
+      // Filter out refurbished/pre-owned unless query requested it
+      const titleLower = (item.title || '').toLowerCase();
+      if (!query.toLowerCase().includes('refurbished') && /\b(refurbished|pre-owned|used)\b/i.test(titleLower)) {
+        continue;
+      }
+
+      // Filter out accessories if looking for main item
+      if (isAccidentalAccessory(item.title, query)) {
+        continue;
+      }
+
+      products.push({
+        id: `serp-${item.position || Math.random().toString(36).substring(7)}`,
+        name: item.title,
+        category: 'Google Shopping',
+        brand: item.source || 'Verified Merchant',
+        price: Number(priceVal.toFixed(2)),
+        currency: 'USD',
+        rating: Number((item.rating || 4.6).toFixed(1)),
+        reviewCount: item.ratingCount || 120,
+        specs: {
+          store: item.source || 'Online Store',
+          delivery: item.delivery || 'Standard Shipping',
+          condition: 'Brand New',
+        },
+        highlights: [
+          `Available from ${item.source || 'top retailers'} via Google Shopping`,
+          item.delivery || 'Fast tracked shipping',
+          'Live market price comparison',
+        ],
+        pros: ['Live merchant pricing', `Sold by ${item.source || 'Verified Retailer'}`],
+        cons: ['Stock dependent on merchant availability'],
+        bestFor: item.title,
+        imageUrl: item.imageUrl || getCategoryImage(query),
+        inStock: true,
+        stockQuantity: 15,
+        link: item.link,
+      });
+    }
+
+    return products.length > 0 ? products : null;
+  } catch (err) {
+    console.error('Serper Google Shopping Error:', err.message);
+    return null;
+  }
+}
+
+/**
  * Universal Autonomous Search:
- * Multi-source pipeline: Query Cache -> Local Catalog -> Live Public API -> Generative Indexer
+ * Multi-source pipeline: Query Cache -> Google Shopping Serper -> Local Catalog -> Live Public API -> Generative Indexer
  */
 export async function searchProductsUniversal(options = {}) {
   const queryTerm = (options.query || options.category || options.brand || '').trim();
@@ -160,6 +240,26 @@ export async function searchProductsUniversal(options = {}) {
   const cached = queryCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
     return cached.results;
+  }
+
+  // 2. If SERPER_API_KEY is configured, search Google Shopping first!
+  if (queryTerm && process.env.SERPER_API_KEY) {
+    const liveGoogleProducts = await fetchGoogleShoppingSerper(queryTerm);
+    if (liveGoogleProducts && liveGoogleProducts.length > 0) {
+      const currentCatalog = loadCatalog();
+      for (const gp of liveGoogleProducts) {
+        if (!currentCatalog.some((c) => c.name.toLowerCase() === gp.name.toLowerCase())) {
+          currentCatalog.push(gp);
+        }
+      }
+      saveCatalog(currentCatalog);
+
+      let filteredGoogle = filterProducts(liveGoogleProducts, options);
+      if (filteredGoogle.length > 0) {
+        queryCache.set(cacheKey, { timestamp: Date.now(), results: filteredGoogle });
+        return filteredGoogle;
+      }
+    }
   }
 
   const currentCatalog = loadCatalog();

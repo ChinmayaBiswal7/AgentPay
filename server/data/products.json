@@ -422,6 +422,78 @@
     "stockQuantity": 25
   },
   {
+    "id": "ph-16-pro-max",
+    "name": "Apple iPhone 16 Pro Max",
+    "category": "Smartphones",
+    "brand": "Apple",
+    "price": 1199.00,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviewCount": 1820,
+    "specs": {
+      "display": "6.9\" Super Retina XDR OLED (120Hz ProMotion, 2000 nits)",
+      "chip": "A18 Pro (Apple Intelligence, 3nm 6-core GPU)",
+      "storage": "256 GB NVMe",
+      "batteryLife": "33 hours video playback",
+      "camera": "48MP Fusion Camera + 48MP Ultra Wide + 5x Telephoto + Camera Control button",
+      "weight": "227 g (Grade 5 Titanium)"
+    },
+    "highlights": [
+      "New Camera Control button for instant exposure and zoom adjustments",
+      "A18 Pro processor purpose-built for Apple Intelligence on-device AI",
+      "Largest 6.9\" display with thinnest borders ever on an iPhone"
+    ],
+    "pros": [
+      "Best battery life of any iPhone (33 hours)",
+      "Dedicated tactile Camera Control button",
+      "Unmatched A18 Pro benchmark performance"
+    ],
+    "cons": [
+      "Heavy flagship form factor (227g)",
+      "Starts at $1,199.00 USD"
+    ],
+    "bestFor": "Creators, mobile filmmakers, and power users wanting the absolute top-tier iPhone",
+    "imageUrl": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 15
+  },
+  {
+    "id": "ph-16",
+    "name": "Apple iPhone 16",
+    "category": "Smartphones",
+    "brand": "Apple",
+    "price": 799.00,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 1240,
+    "specs": {
+      "display": "6.1\" Super Retina XDR OLED (2000 nits peak)",
+      "chip": "A18 chip with Apple Intelligence",
+      "storage": "128 GB",
+      "batteryLife": "22 hours video playback",
+      "camera": "48MP 2-in-1 Fusion Camera with 2x optical telephoto + Camera Control",
+      "weight": "170 g (Aerospace-grade Aluminum)"
+    },
+    "highlights": [
+      "Features the new tactile Camera Control button and Action button",
+      "Next-generation Ceramic Shield is 50% tougher than first-gen",
+      "Apple Intelligence support with A18 chip and 8GB RAM"
+    ],
+    "pros": [
+      "Great value at $799 for latest gen",
+      "Camera Control button included",
+      "Vibrant color-infused back glass"
+    ],
+    "cons": [
+      "60Hz refresh rate (no ProMotion)",
+      "128GB base storage"
+    ],
+    "bestFor": "Mainstream iPhone buyers wanting the newest generation with Apple Intelligence",
+    "imageUrl": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 25
+  },
+  {
     "id": "ph-01",
     "name": "Apple iPhone 15 Pro",
     "category": "Smartphones",
