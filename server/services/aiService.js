@@ -69,6 +69,8 @@ export function extractIntentFromQuery(userMessage = '') {
   // Check category
   if (/laptop|notebook|macbook|thinkbook|computer|pc/i.test(text)) {
     intent.category = 'Laptops';
+  } else if (/phone|iphone|smartphone|pixel|galaxy|android|mobile/i.test(text)) {
+    intent.category = 'Smartphones';
   } else if (/headphone|audio|earphone|earbuds|anc|sound/i.test(text)) {
     intent.category = 'Audio';
   } else if (/monitor|screen|display/i.test(text)) {
@@ -95,13 +97,23 @@ export function extractIntentFromQuery(userMessage = '') {
   }
 
   // Extract Brands
-  const brands = ['Lenovo', 'Acer', 'Dell', 'Apple', 'ASUS', 'Sony', 'Anker', 'Bose', 'LG', 'Logitech', 'Keychron'];
+  const brands = ['Apple', 'Lenovo', 'Acer', 'Dell', 'Google', 'Samsung', 'ASUS', 'Sony', 'Anker', 'Bose', 'LG', 'Logitech', 'Keychron'];
   for (const b of brands) {
     if (new RegExp(`\\b${b}\\b`, 'i').test(text)) {
       intent.brand = b;
       break;
     }
   }
+  if (/iphone/i.test(text)) {
+    intent.brand = 'Apple';
+  }
+
+  // Clean free text query for fallback search
+  const cleanTokens = text
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => !['find', 'me', 'a', 'the', 'for', 'with', 'under', 'at', 'least', 'good', 'show', 'best', 'buy', 'i', 'want', 'to', 'can', 'you'].includes(w));
+  intent.freeQuery = cleanTokens.join(' ').trim();
 
   // Intended use
   if (/program|coding|code|developer|software|dev/i.test(text)) {
@@ -190,6 +202,7 @@ export async function processAssistantRequest({ message, conversationHistory = [
     maxPrice: intent.maxPrice,
     minRam: intent.minRam,
     brand: intent.brand,
+    query: intent.category ? undefined : (intent.freeQuery || undefined),
     inStockOnly: true,
   };
 
@@ -206,12 +219,14 @@ export async function processAssistantRequest({ message, conversationHistory = [
     });
     if (fallbackRes.products && fallbackRes.products.length > 0) {
       matchedProducts = fallbackRes.products;
-      relaxedConstraintsNote = ` (Note: Could not find exact match for ${intent.minRam ? intent.minRam + 'GB RAM' : ''} ${intent.brand || ''} under $${intent.maxPrice}, so showing closest options within budget).`;
+      const budgetPart = intent.maxPrice ? ` within your $${intent.maxPrice} budget` : '';
+      relaxedConstraintsNote = ` Showing closest matched options${budgetPart}.`;
     }
   }
 
-  // If still empty and no category specified, return popular items
-  if (matchedProducts.length === 0) {
+  // If still empty: check if it's a generic greeting or an unstocked item
+  const isGenericGreeting = /^(hi|hello|hey|greetings|help|start|products)/i.test(message.trim());
+  if (matchedProducts.length === 0 && isGenericGreeting) {
     const all = getAllProducts();
     matchedProducts = all.slice(0, 3);
   }
@@ -223,20 +238,20 @@ export async function processAssistantRequest({ message, conversationHistory = [
     comparisonData = runTool('compare_products', { productIds });
   }
 
-  // Construct explainable recommendation
+  // Construct clean human-friendly recommendation
   let responseText = '';
-  if (matchedProducts.length === 1) {
+  if (matchedProducts.length === 0) {
+    responseText = `I searched our catalogue for **"${message.trim()}"**, but we don't have matching products in stock. Our verified catalogue currently includes **Smartphones (iPhone 15 Pro, iPhone 14, Pixel 8)**, **Laptops**, **Audio**, **Monitors**, and **Accessories**.`;
+  } else if (matchedProducts.length === 1) {
     const p = matchedProducts[0];
-    responseText = `I found **${p.name}** at **$${p.price.toFixed(2)} USD** which matches your requirements perfectly. It features **${p.specs.ram || ''}** and **${p.specs.batteryLife || ''}** of battery life. It's ideally suited for: ${p.bestFor}.`;
+    responseText = `Here is the top recommendation matching your needs: **${p.name}** for **$${p.price.toFixed(2)} USD** (${p.specs.ram || p.specs.storage || ''}, ${p.specs.batteryLife || ''} battery). It is ideal for ${p.bestFor}.`;
   } else if (matchedProducts.length > 1) {
     const topPick = matchedProducts[0];
     const runnerUp = matchedProducts[1];
-    responseText = `I found **${matchedProducts.length} matching options** grounded in our verified catalog within your criteria${relaxedConstraintsNote}.\n\n` +
-      `• **Top Recommendation:** **${topPick.name}** ($${topPick.price.toFixed(2)} USD) — ${topPick.highlights[0]}. Best for: *${topPick.bestFor}*.\n` +
-      `• **Alternative:** **${runnerUp.name}** ($${runnerUp.price.toFixed(2)} USD) — ${runnerUp.highlights[0]}.\n\n` +
-      `Review the side-by-side comparison below, or click **"Select & Review Order"** on any item to calculate the final total and proceed to PayPal Sandbox checkout.`;
-  } else {
-    responseText = `I couldn't find products matching your criteria in our demo catalog. Could you clarify your budget or preferred category?`;
+    responseText = `Here are the top options matching your requirements${relaxedConstraintsNote}\n\n` +
+      `**Top Pick:** **${topPick.name}** ($${topPick.price.toFixed(2)} USD) — ${topPick.highlights[0]}.\n` +
+      `**Alternative:** **${runnerUp.name}** ($${runnerUp.price.toFixed(2)} USD) — ${runnerUp.highlights[0]}.\n\n` +
+      `Review specs below or click **Review Order** to complete your PayPal Sandbox purchase.`;
   }
 
   return {

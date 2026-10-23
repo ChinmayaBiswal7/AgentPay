@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 import ComparisonView from './ComparisonView';
 import { getProducts, compareProducts as fetchComparison } from '../services/api';
 
-const CATEGORIES = ['All', 'Laptops', 'Audio', 'Monitors', 'Accessories'];
+const CATEGORIES = ['All', 'Smartphones', 'Laptops', 'Audio', 'Monitors', 'Accessories'];
 
 export default function CatalogBrowser({ onSelectOrder }) {
   const [products, setProducts] = useState([]);

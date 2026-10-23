@@ -1,24 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 import {
-  Send,
+  ArrowUp,
   Sparkles,
   Bot,
   User,
   Wrench,
   Clock,
-  ArrowRight,
-  RefreshCw,
-  ShoppingBag,
-  SlidersHorizontal,
+  Laptop,
+  Headphones,
+  Monitor,
+  Keyboard,
+  CheckCircle2,
 } from 'lucide-react';
 import ProductCard from './ProductCard';
 import ComparisonView from './ComparisonView';
 
-const SUGGESTIONS = [
-  'Find me a laptop for programming under $700 with at least 16 GB RAM and good battery life.',
-  'Best wireless noise-cancelling headphones under $250 for focus',
-  'Compare 4K monitors with USB-C docking for developer desk',
-  'Show me mechanical keyboards and ergonomic accessories under $120',
+const QUICK_PROMPTS = [
+  {
+    icon: Laptop,
+    title: 'Programming Laptop',
+    desc: 'Under $700, 16GB RAM & good battery',
+    prompt: 'Find me a laptop for programming under $700 with at least 16 GB RAM and good battery life.',
+  },
+  {
+    icon: Headphones,
+    title: 'Focus Headphones',
+    desc: 'Noise-cancelling under $250',
+    prompt: 'Best wireless noise-cancelling headphones under $250 for focus',
+  },
+  {
+    icon: Monitor,
+    title: 'Coding Monitor',
+    desc: '4K with USB-C Hub & docking',
+    prompt: 'Compare 4K monitors with USB-C docking for developer desk',
+  },
+  {
+    icon: Keyboard,
+    title: 'Ergonomic Desk',
+    desc: 'Mechanical keyboard & mouse under $120',
+    prompt: 'Show me mechanical keyboards and ergonomic accessories under $120',
+  },
 ];
 
 export default function ChatInterface({
@@ -31,6 +53,7 @@ export default function ChatInterface({
 }) {
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -47,155 +70,150 @@ export default function ChatInterface({
     setInputValue('');
   };
 
-  const handleSuggestionClick = (prompt) => {
+  const handlePromptClick = (promptText) => {
     if (isLoading) return;
-    onSendMessage(prompt);
+    onSendMessage(promptText);
   };
 
+  // Only show the hero when conversation has not started yet (just initial 1 message)
+  const isInitialState = messages.length <= 1;
+
   return (
-    <div className="flex flex-col h-[calc(100vh-4.5rem)] max-w-6xl mx-auto px-4 py-4 sm:px-6">
-      {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto space-y-6 pr-2">
-        {/* Welcome Banner */}
-        <div className="p-6 rounded-3xl bg-gradient-to-br from-blue-900/40 via-slate-900 to-slate-900 border border-blue-500/20 shadow-xl">
-          <div className="flex items-center space-x-3 mb-3">
-            <div className="p-2 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30">
+    <div className="flex flex-col h-[calc(100vh-3.5rem)] max-w-4xl mx-auto px-4 py-4 sm:px-6">
+      {/* Scrollable Chat Area */}
+      <div className="flex-1 overflow-y-auto space-y-6 pr-1 custom-scrollbar">
+        {/* Sleek Minimalist Hero (Only on Initial State) */}
+        {isInitialState && (
+          <div className="py-8 sm:py-12 flex flex-col items-center text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center shadow-xl shadow-blue-500/20 text-white">
               <Sparkles className="w-6 h-6" />
             </div>
-            <div>
-              <h1 className="text-xl font-extrabold text-white">AgentPay Assistant</h1>
-              <p className="text-xs text-slate-400">
-                AI Intent Extraction • Grounded Product Discovery • Side-by-Side Comparison • PayPal Checkout
+
+            <div className="space-y-2 max-w-lg">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                What are you shopping for?
+              </h1>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Describe your constraints in plain English. AgentPay finds grounded products, compares specs, and prepares PayPal checkout.
               </p>
             </div>
-          </div>
-          <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
-            Ask any shopping requirement in plain English. AgentPay extracts your constraints (budget ceiling, RAM, form factor), verifies real inventory against our server catalogue, compares options, and assists you through official PayPal Sandbox checkout.
-          </p>
 
-          {/* Quick Prompts */}
-          <div className="mt-4 pt-4 border-t border-slate-800/80">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">
-              Try a hackathon scenario prompt:
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {SUGGESTIONS.map((s, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => handleSuggestionClick(s)}
-                  disabled={isLoading}
-                  className="text-left text-xs px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-blue-600/20 border border-slate-700 hover:border-blue-500/40 text-slate-300 hover:text-blue-300 transition-all flex items-center space-x-1.5 active:scale-95 disabled:opacity-50"
-                >
-                  <span className="truncate max-w-md">{s}</span>
-                  <ArrowRight className="w-3 h-3 shrink-0 text-slate-500" />
-                </button>
-              ))}
+            {/* Quick Prompt Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full max-w-xl text-left pt-2">
+              {QUICK_PROMPTS.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => handlePromptClick(item.prompt)}
+                    disabled={isLoading}
+                    className="p-3.5 rounded-2xl bg-[#111622]/90 hover:bg-[#161D2E] border border-slate-800/80 hover:border-blue-500/40 text-left transition-all duration-200 group flex items-start space-x-3 shadow-sm hover:shadow-md active:scale-[0.98]"
+                  >
+                    <div className="p-2 rounded-xl bg-slate-800/80 group-hover:bg-blue-600/20 text-slate-400 group-hover:text-sky-400 transition-colors shrink-0">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-xs font-semibold text-slate-200 group-hover:text-white truncate">
+                        {item.title}
+                      </div>
+                      <div className="text-[11px] text-slate-400 truncate mt-0.5">
+                        {item.desc}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Message Stream */}
-        {messages.map((msg, index) => (
-          <div key={index} className="space-y-4 animate-in fade-in duration-300">
-            {/* User message */}
-            {msg.role === 'user' && (
-              <div className="flex items-start justify-end space-x-3">
-                <div className="max-w-xl p-4 rounded-2xl rounded-tr-none bg-blue-600 text-white text-sm shadow-lg leading-relaxed">
-                  {msg.content}
-                </div>
-                <div className="w-9 h-9 rounded-xl bg-blue-700 flex items-center justify-center text-white shrink-0 mt-0.5 shadow-md">
-                  <User className="w-5 h-5" />
-                </div>
-              </div>
-            )}
+        {/* Message Thread (Starts after Hero or directly) */}
+        {!isInitialState && (
+          <div className="space-y-6 pt-2">
+            {messages.slice(1).map((msg, index) => (
+              <div key={index} className="space-y-3 animate-in fade-in duration-200">
+                {/* User Message */}
+                {msg.role === 'user' && (
+                  <div className="flex justify-end">
+                    <div className="max-w-md sm:max-w-lg px-4 py-3 rounded-2xl rounded-tr-sm bg-blue-600 text-white text-sm shadow-md leading-relaxed font-medium">
+                      {msg.content}
+                    </div>
+                  </div>
+                )}
 
-            {/* Assistant response */}
-            {msg.role === 'assistant' && (
-              <div className="flex items-start space-x-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shrink-0 mt-0.5 shadow-lg shadow-blue-500/20">
-                  <Bot className="w-5 h-5" />
-                </div>
-                <div className="flex-1 space-y-4 max-w-4xl">
-                  {/* Tool execution badges */}
-                  {msg.toolsExecuted && msg.toolsExecuted.length > 0 && (
-                    <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1.5 text-xs font-mono">
-                      <div className="flex items-center space-x-1.5 text-blue-400 font-bold uppercase tracking-wider text-[10px]">
-                        <Wrench className="w-3 h-3" />
-                        <span>Agent Tools Executed</span>
+                {/* Assistant Message */}
+                {msg.role === 'assistant' && (
+                  <div className="flex items-start space-x-3 text-sm">
+                    <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white shrink-0 mt-0.5 shadow-sm">
+                      <Bot className="w-4 h-4" />
+                    </div>
+
+                    <div className="flex-1 space-y-4 max-w-full">
+                      {/* Assistant Text with clean markdown rendering */}
+                      <div className="text-slate-200 leading-relaxed space-y-2 prose-sm prose-invert">
+                        <ReactMarkdown
+                          components={{
+                            p: ({ children }) => <p className="mb-2 leading-relaxed text-slate-300">{children}</p>,
+                            strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+                            ul: ({ children }) => <ul className="space-y-1 list-disc pl-4 text-slate-300">{children}</ul>,
+                            li: ({ children }) => <li className="text-slate-300">{children}</li>,
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
                       </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {msg.toolsExecuted.map((tool, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/80 text-slate-300"
-                          >
-                            <span className="text-emerald-400 font-semibold">{tool.tool}()</span>
-                            <span className="text-slate-500 text-[10px]">
-                              {JSON.stringify(tool.args).substring(0, 40)}
-                              {JSON.stringify(tool.args).length > 40 ? '...' : ''}
+
+                      {/* Recommended Products Grid */}
+                      {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
+                        <div className="space-y-2.5 pt-1">
+                          <div className="flex items-center justify-between text-xs text-slate-400">
+                            <span className="font-semibold text-slate-300 uppercase tracking-wider text-[11px]">
+                              Catalogue Matches ({msg.recommendedProducts.length})
                             </span>
-                            <span className="text-slate-500 text-[9px] flex items-center space-x-0.5">
-                              <Clock className="w-2.5 h-2.5" />
-                              <span>{tool.durationMs || 1}ms</span>
+                            <span className="text-[11px] text-sky-400 flex items-center space-x-1">
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Grounded & in stock</span>
                             </span>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
 
-                  {/* Assistant Text Message */}
-                  <div className="p-5 rounded-2xl rounded-tl-none bg-slate-900 border border-slate-800 text-slate-200 text-sm leading-relaxed shadow-xl space-y-3">
-                    <div className="whitespace-pre-line">{msg.content}</div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {msg.recommendedProducts.map((p) => (
+                              <ProductCard
+                                key={p.id}
+                                product={p}
+                                onSelectOrder={onSelectOrder}
+                                onToggleCompare={onToggleCompare}
+                                isCompared={comparedIds?.includes(p.id)}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Comparison Table */}
+                      {msg.comparison && (
+                        <ComparisonView
+                          comparison={msg.comparison}
+                          onSelectOrder={onSelectOrder}
+                        />
+                      )}
+                    </div>
                   </div>
-
-                  {/* Recommended Product Cards Grid */}
-                  {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
-                    <div className="space-y-3 pt-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                          Grounded Recommendations ({msg.recommendedProducts.length})
-                        </span>
-                        <span className="text-xs text-blue-400 font-medium">
-                          Strictly verified against demo catalogue
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {msg.recommendedProducts.map((p) => (
-                          <ProductCard
-                            key={p.id}
-                            product={p}
-                            onSelectOrder={onSelectOrder}
-                            onToggleCompare={onToggleCompare}
-                            isCompared={comparedIds?.includes(p.id)}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Comparison View Table if available */}
-                  {msg.comparison && (
-                    <ComparisonView
-                      comparison={msg.comparison}
-                      onSelectOrder={onSelectOrder}
-                    />
-                  )}
-                </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
-        ))}
+        )}
 
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="flex items-start space-x-3 animate-in fade-in duration-200">
-            <div className="w-9 h-9 rounded-xl bg-blue-600/30 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
-              <Bot className="w-5 h-5 animate-pulse" />
+          <div className="flex items-center space-x-3 text-xs text-slate-400 pt-2 animate-in fade-in duration-200">
+            <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center text-sky-400 shrink-0">
+              <Bot className="w-4 h-4 animate-pulse" />
             </div>
-            <div className="p-4 rounded-2xl rounded-tl-none bg-slate-900 border border-slate-800 text-slate-400 text-xs flex items-center space-x-3">
-              <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-              <span>AgentPay is extracting intent, filtering catalogue & evaluating trade-offs...</span>
+            <div className="flex items-center space-x-2">
+              <div className="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin"></div>
+              <span>Searching catalogue, filtering constraints & comparing...</span>
             </div>
           </div>
         )}
@@ -203,31 +221,35 @@ export default function ChatInterface({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Form */}
-      <form onSubmit={handleSubmit} className="mt-3 pt-2 border-t border-slate-800/80">
-        <div className="relative flex items-center bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl focus-within:border-blue-500 transition-all p-1.5">
+      {/* Floating Modern Prompt Input */}
+      <div className="pt-2">
+        <form
+          onSubmit={handleSubmit}
+          className="relative flex items-center bg-[#111622] border border-slate-800 focus-within:border-blue-500/80 rounded-2xl shadow-xl transition-all p-1.5"
+        >
           <input
+            ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="e.g. Find me a laptop for programming under $700 with at least 16 GB RAM..."
+            placeholder="Ask anything, e.g. Find me a laptop for programming under $700..."
             disabled={isLoading}
-            className="flex-1 bg-transparent px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none disabled:opacity-50"
+            className="flex-1 bg-transparent px-3.5 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-medium shadow-md shadow-blue-600/20 transition-all active:scale-95"
-            title="Send request"
+            className="w-8 h-8 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-30 text-white flex items-center justify-center transition-all active:scale-95 shadow-sm shrink-0"
+            title="Send"
           >
-            <Send className="w-4 h-4" />
+            <ArrowUp className="w-4 h-4" />
           </button>
+        </form>
+        <div className="flex items-center justify-between text-[10px] text-slate-500 px-2 mt-1.5">
+          <span>Deterministic constraints • Server-verified pricing</span>
+          <span>PayPal Sandbox Orders v2</span>
         </div>
-        <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2 px-2">
-          <span>AI outputs are grounded in verified demo catalogue data.</span>
-          <span className="font-mono">PayPal Orders v2 • CAPTURE mode</span>
-        </div>
-      </form>
+      </div>
     </div>
   );
 }

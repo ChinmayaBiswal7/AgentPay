@@ -344,5 +344,92 @@
     "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
     "stockQuantity": 25
+  },
+  {
+    "id": "ph-01",
+    "name": "Apple iPhone 15 Pro",
+    "category": "Smartphones",
+    "brand": "Apple",
+    "price": 999.00,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviewCount": 2450,
+    "specs": {
+      "display": "6.1\" Super Retina XDR OLED (120Hz ProMotion)",
+      "chip": "A17 Pro (3nm GPU ray tracing)",
+      "storage": "128 GB NVMe",
+      "batteryLife": "23 hours video playback",
+      "camera": "48MP Main + 3x Telephoto + Ultra Wide",
+      "weight": "187 g (Titanium)"
+    },
+    "highlights": [
+      "Aerospace-grade titanium design with contoured edges",
+      "A17 Pro chip brings console gaming and fluid multitasking",
+      "Universal USB-C connector with 10Gbps transfer speed"
+    ],
+    "pros": ["Top-tier camera system", "Lightweight titanium build", "Action button customization"],
+    "cons": ["Premium price point ($999)", "Base model starts with 128GB"],
+    "bestFor": "Power users, iOS developers, mobile creators",
+    "imageUrl": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 18
+  },
+  {
+    "id": "ph-02",
+    "name": "Apple iPhone 14",
+    "category": "Smartphones",
+    "brand": "Apple",
+    "price": 699.00,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviewCount": 1890,
+    "specs": {
+      "display": "6.1\" Super Retina XDR OLED (60Hz)",
+      "chip": "A15 Bionic (6-core)",
+      "storage": "128 GB",
+      "batteryLife": "20 hours video playback",
+      "camera": "12MP Dual Camera with Photonic Engine",
+      "weight": "172 g"
+    },
+    "highlights": [
+      "High-value iPhone under $700",
+      "Superb battery endurance and reliable iOS updates",
+      "Durable Ceramic Shield front glass"
+    ],
+    "pros": ["Under $700 budget", "All-day battery life", "Great point-and-shoot camera"],
+    "cons": ["Lightning port instead of USB-C", "60Hz display refresh rate"],
+    "bestFor": "Everyday smartphone users wanting iOS reliability under $700",
+    "imageUrl": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 24
+  },
+  {
+    "id": "ph-03",
+    "name": "Google Pixel 8",
+    "category": "Smartphones",
+    "brand": "Google",
+    "price": 599.00,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviewCount": 980,
+    "specs": {
+      "display": "6.2\" Actua OLED (120Hz, 2000 nits)",
+      "chip": "Google Tensor G3",
+      "storage": "128 GB UFS 3.1",
+      "batteryLife": "24+ hours adaptive battery",
+      "camera": "50MP Octa PD + 12MP Ultra Wide",
+      "weight": "187 g"
+    },
+    "highlights": [
+      "7 years of official Android OS and security upgrades",
+      "Super sharp 120Hz Actua display up to 2000 nits",
+      "Best computational photography & AI call screening"
+    ],
+    "pros": ["Best Android value under $600", "7-year software support", "Outstanding camera AI"],
+    "cons": ["Tensor chip runs warm during sustained 3D gaming"],
+    "bestFor": "Android lovers, AI photography enthusiasts, budget shoppers under $600",
+    "imageUrl": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 15
   }
 ]
