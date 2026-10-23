@@ -138,6 +138,37 @@ export function extractIntentFromQuery(userMessage = '') {
         break;
       }
     }
+  } else if (/detail|explain|in-depth|tell me about|specs|specification|breakdown|features of/i.test(text)) {
+    intent.action = 'details';
+    const all = getAllProducts();
+    // Try matching exact product
+    for (const p of all) {
+      if (text.includes(p.id.toLowerCase()) || text.includes(p.name.toLowerCase())) {
+        intent.targetProductId = p.id;
+        break;
+      }
+    }
+    // Match common aliases (e.g., "thinkbook", "s24 ultra", "iphone 16", "pixel 8", "xm4")
+    if (!intent.targetProductId) {
+      if (/thinkbook/i.test(text)) intent.targetProductId = 'lap-01';
+      else if (/aspire/i.test(text)) intent.targetProductId = 'lap-02';
+      else if (/inspiron/i.test(text)) intent.targetProductId = 'lap-03';
+      else if (/macbook/i.test(text)) intent.targetProductId = 'lap-04';
+      else if (/zenbook/i.test(text)) intent.targetProductId = 'lap-05';
+      else if (/s24.*ultra|ultra/i.test(text)) intent.targetProductId = 'ph-04';
+      else if (/s24/i.test(text)) intent.targetProductId = 'ph-05';
+      else if (/a54/i.test(text)) intent.targetProductId = 'ph-06';
+      else if (/16.*pro/i.test(text)) intent.targetProductId = 'ph-16-pro-max';
+      else if (/iphone.*16/i.test(text)) intent.targetProductId = 'ph-16';
+      else if (/15.*pro/i.test(text)) intent.targetProductId = 'ph-01';
+      else if (/iphone.*14/i.test(text)) intent.targetProductId = 'ph-02';
+      else if (/pixel.*8/i.test(text)) intent.targetProductId = 'ph-03';
+      else if (/xm4|sony.*headphone/i.test(text)) intent.targetProductId = 'aud-01';
+      else if (/space one/i.test(text)) intent.targetProductId = 'aud-02';
+      else if (/bose|qc45/i.test(text)) intent.targetProductId = 'aud-03';
+      else if (/mx master/i.test(text)) intent.targetProductId = 'acc-01';
+      else if (/keychron/i.test(text)) intent.targetProductId = 'acc-02';
+    }
   } else if (/compare/i.test(text)) {
     intent.action = 'compare';
   }
@@ -195,6 +226,42 @@ export async function processAssistantRequest({ message, conversationHistory = [
       proposedOrder: summaryResult.summary,
       comparison: null,
     };
+  }
+
+  // If in-depth detailed product breakdown is requested
+  if (intent.action === 'details' && intent.targetProductId) {
+    const details = await runTool('get_product_details', { productId: intent.targetProductId });
+    const p = details?.product;
+    if (p) {
+      const specsList = Object.entries(p.specs || {})
+        .map(([k, v]) => `• **${k.charAt(0).toUpperCase() + k.slice(1)}:** ${v}`)
+        .join('\n');
+
+      const highlightsList = (p.highlights || [])
+        .map((h) => `• ${h}`)
+        .join('\n');
+
+      const prosList = (p.pros || []).map((pro) => `✓ ${pro}`).join('\n');
+      const consList = (p.cons || []).map((con) => `✗ ${con}`).join('\n');
+
+      const detailMessage =
+        `### 🔬 In-Depth Analysis: **${p.name}**\n\n` +
+        `**Brand:** ${p.brand} | **Price:** $${p.price.toFixed(2)} USD | **Rating:** ${p.rating} ★ (${p.reviewCount} verified reviews)\n\n` +
+        `#### ⚙️ Complete Technical Specifications:\n${specsList}\n\n` +
+        `#### 💡 Architecture & Key Highlights:\n${highlightsList}\n\n` +
+        `#### ⚖️ Strengths & Limitations:\n**Pros:**\n${prosList}\n\n**Cons:**\n${consList}\n\n` +
+        `#### 🎯 Verdict & Recommended For:\n*${p.bestFor}*\n\n` +
+        `Click **Review Order** below to calculate the final price breakdown and proceed to PayPal Sandbox checkout.`;
+
+      return {
+        message: detailMessage,
+        intent,
+        toolsExecuted,
+        recommendedProducts: [p],
+        proposedOrder: null,
+        comparison: null,
+      };
+    }
   }
 
   /**
