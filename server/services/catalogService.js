@@ -132,20 +132,48 @@ function getCategoryImage(categoryOrQuery) {
   return 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=80';
 }
 
+const queryCache = new Map();
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5-minute query cache
+
+/**
+ * Filter out accessories (cases, covers, screen protectors)
+ * when user is searching for the actual device, unless they asked for an accessory
+ */
+function isAccidentalAccessory(productName, userQuery) {
+  const queryLower = (userQuery || '').toLowerCase();
+  const explicitlyWantsAccessory = /\b(case|cover|protector|film|strap|sleeve|cable|adapter|charger|skin)\b/i.test(queryLower);
+  if (explicitlyWantsAccessory) return false;
+
+  const nameLower = productName.toLowerCase();
+  return /\b(case|cover|protector|film|skin|sleeve)\b/i.test(nameLower);
+}
+
 /**
  * Universal Autonomous Search:
- * Searches local catalog -> queries live public product APIs -> dynamically indexes into server catalog.
+ * Multi-source pipeline: Query Cache -> Local Catalog -> Live Public API -> Generative Indexer
  */
 export async function searchProductsUniversal(options = {}) {
+  const queryTerm = (options.query || options.category || options.brand || '').trim();
+  const cacheKey = JSON.stringify({ ...options, query: queryTerm.toLowerCase() });
+
+  // 1. Check in-memory 5-minute TTL cache
+  const cached = queryCache.get(cacheKey);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return cached.results;
+  }
+
   const currentCatalog = loadCatalog();
   let results = filterProducts(currentCatalog, options);
 
-  // If local results are already sufficient (at least 2), return immediately
+  // Filter out accidental accessories if query was for a primary device
+  results = results.filter((p) => !isAccidentalAccessory(p.name, queryTerm));
+
+  // If local results are already sufficient (at least 2), cache and return
   if (results.length >= 2) {
+    queryCache.set(cacheKey, { timestamp: Date.now(), results });
     return results;
   }
 
-  const queryTerm = (options.query || options.category || options.brand || '').trim();
   if (!queryTerm) {
     return results;
   }
@@ -271,6 +299,10 @@ export async function searchProductsUniversal(options = {}) {
     results = filterProducts(currentCatalog, options);
   }
 
+  // Filter out accessories from final results if looking for main item
+  results = results.filter((p) => !isAccidentalAccessory(p.name, queryTerm));
+
+  queryCache.set(cacheKey, { timestamp: Date.now(), results });
   return results;
 }
 

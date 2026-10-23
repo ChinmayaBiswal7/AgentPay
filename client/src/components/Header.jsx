@@ -1,35 +1,38 @@
 import React from 'react';
-import { Bot, ShoppingBag, Layers, ShieldCheck, Zap } from 'lucide-react';
+import { Bot, ShoppingBag, Layers, PanelLeft, User, ShieldCheck } from 'lucide-react';
 
-export default function Header({ activeTab, setActiveTab, onResetChat }) {
+export default function Header({
+  activeTab,
+  setActiveTab,
+  onToggleSidebar,
+  onOpenProfile,
+  orderCount = 0,
+}) {
   return (
-    <header className="sticky top-0 z-40 bg-[#0B0F17]/80 backdrop-blur-xl border-b border-slate-800/80">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <header className="sticky top-0 z-30 bg-[#0B0F17]/80 backdrop-blur-xl border-b border-slate-800/80">
+      <div className="w-full px-4 sm:px-6">
         <div className="flex items-center justify-between h-14">
-          {/* Brand Logo */}
-          <button
-            onClick={() => {
-              setActiveTab('assistant');
-              if (onResetChat) onResetChat();
-            }}
-            className="flex items-center space-x-2.5 group text-left transition-opacity hover:opacity-90"
-          >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-md shadow-blue-600/20">
-              <Zap className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <div className="flex items-center space-x-1.5">
-                <span className="text-base font-bold tracking-tight text-white">
-                  Agent<span className="text-sky-400">Pay</span>
-                </span>
-                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-blue-500/10 text-sky-400 border border-blue-500/20">
-                  PayPal + AI
-                </span>
-              </div>
-            </div>
-          </button>
+          {/* Left: Sidebar Toggle & Mobile Brand */}
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={onToggleSidebar}
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+              title="Toggle Chat History & Profile"
+            >
+              <PanelLeft className="w-5 h-5" />
+            </button>
 
-          {/* Clean Segmented Tab Navigation */}
+            <div className="flex items-center space-x-2">
+              <span className="font-bold text-white text-base tracking-tight hidden sm:inline">
+                Agent<span className="text-sky-400">Pay</span>
+              </span>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-sky-400 border border-blue-500/20 hidden md:inline">
+                PayPal + AI
+              </span>
+            </div>
+          </div>
+
+          {/* Center: Segmented Navigation */}
           <nav className="flex items-center bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs">
             <button
               onClick={() => setActiveTab('assistant')}
@@ -68,12 +71,25 @@ export default function Header({ activeTab, setActiveTab, onResetChat }) {
             </button>
           </nav>
 
-          {/* Sandbox Status Badge */}
-          <div className="flex items-center space-x-2 text-xs">
+          {/* Right: Sandbox Status & Orders Button */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={onOpenProfile}
+              className="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 transition-colors"
+              title="View Purchase History"
+            >
+              <User className="w-3.5 h-3.5 text-sky-400" />
+              <span className="hidden sm:inline">Orders</span>
+              {orderCount > 0 && (
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-sky-500/20 text-sky-400 font-mono">
+                  {orderCount}
+                </span>
+              )}
+            </button>
+
             <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>PayPal Sandbox</span>
-              <span className="text-emerald-500/60 hidden sm:inline">• USD</span>
+              <span className="hidden sm:inline">PayPal Sandbox</span>
             </div>
           </div>
         </div>
