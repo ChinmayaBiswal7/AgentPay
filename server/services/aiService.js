@@ -1,5 +1,6 @@
 import {
   searchProducts,
+  searchProductsUniversal,
   getProductById,
   compareProducts,
   calculateOrderSummary,
@@ -11,9 +12,9 @@ import {
  */
 export const AGENT_TOOLS = {
   search_products: {
-    description: 'Search catalog with deterministic filters like budget, category, ram, brand',
-    execute: (args) => {
-      const results = searchProducts(args);
+    description: 'Search catalog with deterministic filters like budget, category, ram, brand, or query',
+    execute: async (args) => {
+      const results = await searchProductsUniversal(args);
       return {
         count: results.length,
         products: results,
@@ -152,9 +153,9 @@ export async function processAssistantRequest({ message, conversationHistory = [
   const toolsExecuted = [];
 
   // Log helper
-  const runTool = (name, args) => {
+  const runTool = async (name, args) => {
     const start = Date.now();
-    const result = AGENT_TOOLS[name].execute(args);
+    const result = await AGENT_TOOLS[name].execute(args);
     toolsExecuted.push({
       tool: name,
       args,
@@ -166,9 +167,9 @@ export async function processAssistantRequest({ message, conversationHistory = [
 
   // If user explicitly asks for direct checkout on a selected product:
   if (selectedProductId) {
-    const details = runTool('get_product_details', { productId: selectedProductId });
+    const details = await runTool('get_product_details', { productId: selectedProductId });
     if (details.product) {
-      const summaryResult = runTool('prepare_order_summary', { productId: selectedProductId, quantity: 1 });
+      const summaryResult = await runTool('prepare_order_summary', { productId: selectedProductId, quantity: 1 });
       return {
         message: `I've prepared your order summary for **${details.product.name}**. Please review the pricing breakdown below before approving the payment with PayPal Sandbox.`,
         intent: { action: 'checkout', targetProductId: selectedProductId },
@@ -184,8 +185,8 @@ export async function processAssistantRequest({ message, conversationHistory = [
 
   // If checkout requested with product detected
   if (intent.action === 'checkout' && intent.targetProductId) {
-    const details = runTool('get_product_details', { productId: intent.targetProductId });
-    const summaryResult = runTool('prepare_order_summary', { productId: intent.targetProductId, quantity: 1 });
+    const details = await runTool('get_product_details', { productId: intent.targetProductId });
+    const summaryResult = await runTool('prepare_order_summary', { productId: intent.targetProductId, quantity: 1 });
     return {
       message: `You've selected **${details.product.name}**! I have verified the pricing and stock against the server catalog. Click 'Checkout with PayPal' when ready to approve the transaction in the PayPal Sandbox environment.`,
       intent,
@@ -202,17 +203,17 @@ export async function processAssistantRequest({ message, conversationHistory = [
     maxPrice: intent.maxPrice,
     minRam: intent.minRam,
     brand: intent.brand,
-    query: intent.category ? undefined : (intent.freeQuery || undefined),
+    query: intent.category ? undefined : (intent.freeQuery || intent.rawQuery || undefined),
     inStockOnly: true,
   };
 
-  const searchRes = runTool('search_products', searchFilter);
+  const searchRes = await runTool('search_products', searchFilter);
   let matchedProducts = searchRes.products || [];
 
   // If strict search yielded 0 with a RAM constraint, check if relaxing RAM finds options
   let relaxedConstraintsNote = '';
   if (matchedProducts.length === 0 && intent.minRam && !intent.brand) {
-    const fallbackRes = runTool('search_products', {
+    const fallbackRes = await runTool('search_products', {
       category: intent.category,
       maxPrice: intent.maxPrice,
       inStockOnly: true,
@@ -235,7 +236,7 @@ export async function processAssistantRequest({ message, conversationHistory = [
   let comparisonData = null;
   if (matchedProducts.length >= 2) {
     const productIds = matchedProducts.slice(0, 3).map((p) => p.id);
-    comparisonData = runTool('compare_products', { productIds });
+    comparisonData = await runTool('compare_products', { productIds });
   }
 
   // Construct clean human-friendly recommendation

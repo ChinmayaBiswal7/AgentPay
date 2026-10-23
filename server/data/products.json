@@ -22,8 +22,15 @@
       "Spacious numpad keyboard with comfortable key travel",
       "Solid dual-fan cooling under compilation loads"
     ],
-    "pros": ["Outstanding value for developers", "16GB RAM out of the box", "Comfortable keyboard for coding"],
-    "cons": ["Display max brightness is 300 nits (indoor focused)", "Plastic-aluminum hybrid body"],
+    "pros": [
+      "Outstanding value for developers",
+      "16GB RAM out of the box",
+      "Comfortable keyboard for coding"
+    ],
+    "cons": [
+      "Display max brightness is 300 nits (indoor focused)",
+      "Plastic-aluminum hybrid body"
+    ],
     "bestFor": "Programming, software engineering, and multi-tab development under $700",
     "imageUrl": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -52,8 +59,15 @@
       "Ryzen 5 high multithreaded performance",
       "Upgradable RAM slot"
     ],
-    "pros": ["Lowest price with 16 GB RAM", "Fast multi-core compilation", "Good selection of ports (USB-C + HDMI)"],
-    "cons": ["Average webcam quality (720p)", "Battery life slightly lower than ThinkBook"],
+    "pros": [
+      "Lowest price with 16 GB RAM",
+      "Fast multi-core compilation",
+      "Good selection of ports (USB-C + HDMI)"
+    ],
+    "cons": [
+      "Average webcam quality (720p)",
+      "Battery life slightly lower than ThinkBook"
+    ],
     "bestFor": "Budget-conscious computer science students and web developers",
     "imageUrl": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -64,7 +78,7 @@
     "name": "Dell Inspiron 14 5420",
     "category": "Laptops",
     "brand": "Dell",
-    "price": 699.00,
+    "price": 699,
     "currency": "USD",
     "rating": 4.7,
     "reviewCount": 215,
@@ -82,8 +96,15 @@
       "Intel Core i7 processor handles complex builds",
       "Compact, lightweight portable chassis"
     ],
-    "pros": ["16:10 aspect ratio is superior for reading code", "Lightweight and highly portable", "Excellent battery life (9.5h)"],
-    "cons": ["Hits the exact $700 budget ceiling", "Fans spin up audibly under max benchmark stress"],
+    "pros": [
+      "16:10 aspect ratio is superior for reading code",
+      "Lightweight and highly portable",
+      "Excellent battery life (9.5h)"
+    ],
+    "cons": [
+      "Hits the exact $700 budget ceiling",
+      "Fans spin up audibly under max benchmark stress"
+    ],
     "bestFor": "Mobile developers and college students wanting a portable 14-inch form factor",
     "imageUrl": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -112,8 +133,15 @@
       "Silent, fanless premium aluminum design",
       "Vibrant high-resolution Retina display"
     ],
-    "pros": ["Best-in-class battery life", "Completely silent operation", "Superb trackpad and build"],
-    "cons": ["Over $700 budget ($749.99)", "Base configuration only has 8 GB RAM and 256 GB SSD"],
+    "pros": [
+      "Best-in-class battery life",
+      "Completely silent operation",
+      "Superb trackpad and build"
+    ],
+    "cons": [
+      "Over $700 budget ($749.99)",
+      "Base configuration only has 8 GB RAM and 256 GB SSD"
+    ],
     "bestFor": "iOS/macOS development and battery life prioritizers (requires slightly higher budget)",
     "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -142,8 +170,14 @@
       "Large 1TB SSD for massive container images",
       "Latest Intel Core Ultra AI processor"
     ],
-    "pros": ["Breathtaking OLED screen", "Massive 1TB storage", "Super lightweight"],
-    "cons": ["Significantly exceeds $700 budget ($849.99)"],
+    "pros": [
+      "Breathtaking OLED screen",
+      "Massive 1TB storage",
+      "Super lightweight"
+    ],
+    "cons": [
+      "Significantly exceeds $700 budget ($849.99)"
+    ],
     "bestFor": "Premium developers willing to stretch budget for OLED display and 1TB storage",
     "imageUrl": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -154,7 +188,7 @@
     "name": "Sony WH-1000XM4 Wireless Noise-Cancelling Headphones",
     "category": "Audio",
     "brand": "Sony",
-    "price": 278.00,
+    "price": 278,
     "currency": "USD",
     "rating": 4.8,
     "reviewCount": 3410,
@@ -170,8 +204,14 @@
       "Multipoint connects to laptop and phone simultaneously",
       "Plush headband for all-day focus sessions"
     ],
-    "pros": ["Exceptional noise cancellation", "30-hour battery", "Multipoint device pairing"],
-    "cons": ["Mic quality in noisy cafes is moderate"],
+    "pros": [
+      "Exceptional noise cancellation",
+      "30-hour battery",
+      "Multipoint device pairing"
+    ],
+    "cons": [
+      "Mic quality in noisy cafes is moderate"
+    ],
     "bestFor": "Programmers and remote workers needing deep acoustic isolation",
     "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -198,8 +238,14 @@
       "Huge 40-hour ANC battery endurance",
       "Comfortable 8° rotating earcups"
     ],
-    "pros": ["Unmatched price-to-performance ratio", "40-hour ANC battery", "Hi-Res LDAC support"],
-    "cons": ["Bass is punchy out of the box (requires companion app EQ)"],
+    "pros": [
+      "Unmatched price-to-performance ratio",
+      "40-hour ANC battery",
+      "Hi-Res LDAC support"
+    ],
+    "cons": [
+      "Bass is punchy out of the box (requires companion app EQ)"
+    ],
     "bestFor": "High-value focus headphones under $100",
     "imageUrl": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -210,7 +256,7 @@
     "name": "Bose QuietComfort 45",
     "category": "Audio",
     "brand": "Bose",
-    "price": 229.00,
+    "price": 229,
     "currency": "USD",
     "rating": 4.7,
     "reviewCount": 1920,
@@ -226,8 +272,14 @@
       "Simple tactile physical buttons",
       "Clear voice call pickup for standups"
     ],
-    "pros": ["Lightest, most comfortable fit on the market", "Crisp vocal clarity", "Physical buttons avoid accidental touches"],
-    "cons": ["Cannot turn ANC completely off (only switch between Quiet and Aware)"],
+    "pros": [
+      "Lightest, most comfortable fit on the market",
+      "Crisp vocal clarity",
+      "Physical buttons avoid accidental touches"
+    ],
+    "cons": [
+      "Cannot turn ANC completely off (only switch between Quiet and Aware)"
+    ],
     "bestFor": "All-day comfort during long coding and meeting sessions",
     "imageUrl": "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -254,8 +306,14 @@
       "One-cable laptop dock with 90W Power Delivery and Ethernet",
       "Built-in KVM switch to control two PCs with one keyboard"
     ],
-    "pros": ["Razor sharp text scaling", "Eliminates desk cable clutter", "Superb ergonomic stand"],
-    "cons": ["60Hz refresh rate (not for high-FPS gaming)"],
+    "pros": [
+      "Razor sharp text scaling",
+      "Eliminates desk cable clutter",
+      "Superb ergonomic stand"
+    ],
+    "cons": [
+      "60Hz refresh rate (not for high-FPS gaming)"
+    ],
     "bestFor": "Professional developer desk setups wanting crisp text and clean single-cable docking",
     "imageUrl": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -282,8 +340,14 @@
       "Sharp 1440p resolution provides 77% more screen space than 1080p",
       "High color accuracy Nano IPS panel"
     ],
-    "pros": ["Superb value under $250", "Ultra-fluid 165Hz scrolling", "Sharp 1440p resolution"],
-    "cons": ["No USB-C Power Delivery port"],
+    "pros": [
+      "Superb value under $250",
+      "Ultra-fluid 165Hz scrolling",
+      "Sharp 1440p resolution"
+    ],
+    "cons": [
+      "No USB-C Power Delivery port"
+    ],
     "bestFor": "Dual-purpose work & gaming setups on a budget",
     "imageUrl": "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -310,8 +374,14 @@
       "Near-silent clicks for quiet shared offices",
       "Thumb wheel for horizontal code editor panning"
     ],
-    "pros": ["Ergonomic wrist posture", "Horizontal thumb scroll for wide codebases", "70-day battery life"],
-    "cons": ["Right-handed only"],
+    "pros": [
+      "Ergonomic wrist posture",
+      "Horizontal thumb scroll for wide codebases",
+      "70-day battery life"
+    ],
+    "cons": [
+      "Right-handed only"
+    ],
     "bestFor": "Daily software development, navigation, and productivity",
     "imageUrl": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -338,8 +408,14 @@
       "Hot-swappable socket to swap switches without soldering",
       "Mac and Windows compatible with included keycaps"
     ],
-    "pros": ["Superb tactile typing experience", "Compact desk-saving 75% footprint", "QMK/VIA customization"],
-    "cons": ["Relatively tall profile (wrist rest recommended)"],
+    "pros": [
+      "Superb tactile typing experience",
+      "Compact desk-saving 75% footprint",
+      "QMK/VIA customization"
+    ],
+    "cons": [
+      "Relatively tall profile (wrist rest recommended)"
+    ],
     "bestFor": "Typing enthusiasts, programmers, and Linux/Mac power users",
     "imageUrl": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -350,7 +426,7 @@
     "name": "Apple iPhone 15 Pro",
     "category": "Smartphones",
     "brand": "Apple",
-    "price": 999.00,
+    "price": 999,
     "currency": "USD",
     "rating": 4.9,
     "reviewCount": 2450,
@@ -367,8 +443,15 @@
       "A17 Pro chip brings console gaming and fluid multitasking",
       "Universal USB-C connector with 10Gbps transfer speed"
     ],
-    "pros": ["Top-tier camera system", "Lightweight titanium build", "Action button customization"],
-    "cons": ["Premium price point ($999)", "Base model starts with 128GB"],
+    "pros": [
+      "Top-tier camera system",
+      "Lightweight titanium build",
+      "Action button customization"
+    ],
+    "cons": [
+      "Premium price point ($999)",
+      "Base model starts with 128GB"
+    ],
     "bestFor": "Power users, iOS developers, mobile creators",
     "imageUrl": "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -379,7 +462,7 @@
     "name": "Apple iPhone 14",
     "category": "Smartphones",
     "brand": "Apple",
-    "price": 699.00,
+    "price": 699,
     "currency": "USD",
     "rating": 4.7,
     "reviewCount": 1890,
@@ -396,8 +479,15 @@
       "Superb battery endurance and reliable iOS updates",
       "Durable Ceramic Shield front glass"
     ],
-    "pros": ["Under $700 budget", "All-day battery life", "Great point-and-shoot camera"],
-    "cons": ["Lightning port instead of USB-C", "60Hz display refresh rate"],
+    "pros": [
+      "Under $700 budget",
+      "All-day battery life",
+      "Great point-and-shoot camera"
+    ],
+    "cons": [
+      "Lightning port instead of USB-C",
+      "60Hz display refresh rate"
+    ],
     "bestFor": "Everyday smartphone users wanting iOS reliability under $700",
     "imageUrl": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -408,7 +498,7 @@
     "name": "Google Pixel 8",
     "category": "Smartphones",
     "brand": "Google",
-    "price": 599.00,
+    "price": 599,
     "currency": "USD",
     "rating": 4.6,
     "reviewCount": 980,
@@ -425,8 +515,14 @@
       "Super sharp 120Hz Actua display up to 2000 nits",
       "Best computational photography & AI call screening"
     ],
-    "pros": ["Best Android value under $600", "7-year software support", "Outstanding camera AI"],
-    "cons": ["Tensor chip runs warm during sustained 3D gaming"],
+    "pros": [
+      "Best Android value under $600",
+      "7-year software support",
+      "Outstanding camera AI"
+    ],
+    "cons": [
+      "Tensor chip runs warm during sustained 3D gaming"
+    ],
     "bestFor": "Android lovers, AI photography enthusiasts, budget shoppers under $600",
     "imageUrl": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -455,8 +551,15 @@
       "Galaxy AI live translation and Circle to Search",
       "Anti-reflective flat display with 2600 nits peak outdoor brightness"
     ],
-    "pros": ["Top-tier zoom cameras", "Built-in S-Pen", "Blazing Snapdragon 8 Gen 3"],
-    "cons": ["High flagship price ($1,199.99)", "Large and heavy form factor"],
+    "pros": [
+      "Top-tier zoom cameras",
+      "Built-in S-Pen",
+      "Blazing Snapdragon 8 Gen 3"
+    ],
+    "cons": [
+      "High flagship price ($1,199.99)",
+      "Large and heavy form factor"
+    ],
     "bestFor": "Android power users, mobile photography enthusiasts, note-takers",
     "imageUrl": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -485,8 +588,15 @@
       "7 years of major Android OS and security upgrades",
       "Galaxy AI photo editing and generative wallpaper"
     ],
-    "pros": ["Pocket-friendly compact size", "7 years software support", "Vibrant 120Hz display"],
-    "cons": ["Base model has 128GB storage", "25W charging speed"],
+    "pros": [
+      "Pocket-friendly compact size",
+      "7 years software support",
+      "Vibrant 120Hz display"
+    ],
+    "cons": [
+      "Base model has 128GB storage",
+      "25W charging speed"
+    ],
     "bestFor": "Compact flagship lovers and mainstream Samsung users",
     "imageUrl": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
@@ -515,11 +625,214 @@
       "Massive 5000 mAh 2-day battery life",
       "MicroSD card expansion slot"
     ],
-    "pros": ["Great battery life", "Premium glass back design", "MicroSD card slot support"],
-    "cons": ["No wireless charging", "Moderate gaming performance"],
+    "pros": [
+      "Great battery life",
+      "Premium glass back design",
+      "MicroSD card slot support"
+    ],
+    "cons": [
+      "No wireless charging",
+      "Moderate gaming performance"
+    ],
     "bestFor": "Budget-conscious shoppers wanting Samsung quality under $450",
     "imageUrl": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
     "stockQuantity": 28
+  },
+  {
+    "id": "ext-186",
+    "name": "Calvin Klein Heel Shoes",
+    "category": "Womens-shoes",
+    "brand": "Calvin Klein",
+    "price": 79.99,
+    "currency": "USD",
+    "rating": 4.9,
+    "reviewCount": 36,
+    "specs": {
+      "brand": "Calvin Klein",
+      "category": "womens-shoes",
+      "warranty": "2 year warranty",
+      "shipping": "Ships in 1 week"
+    },
+    "highlights": [
+      "Calvin Klein Heel Shoes are elegant and sophisticated, designed for formal occasions. With a classic design and high-quality materials, they complement your stylish ensemble.",
+      "Ships in 1 week",
+      "60 days return policy"
+    ],
+    "pros": [
+      "Authentic product",
+      "Standard warranty included",
+      "Reliable customer ratings"
+    ],
+    "cons": [
+      "High demand product"
+    ],
+    "bestFor": "Calvin Klein Heel Shoes are elegant and sophisticated, designed for formal occasions. With a classic design and high-quality materials, they complement your stylish ensemble.",
+    "imageUrl": "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/thumbnail.webp",
+    "inStock": true,
+    "stockQuantity": 93
+  },
+  {
+    "id": "ext-187",
+    "name": "Golden Shoes Woman",
+    "category": "Womens-shoes",
+    "brand": "Fashion Diva",
+    "price": 49.99,
+    "currency": "USD",
+    "rating": 3.3,
+    "reviewCount": 36,
+    "specs": {
+      "brand": "Fashion Diva",
+      "category": "womens-shoes",
+      "warranty": "6 months warranty",
+      "shipping": "Ships in 2 weeks"
+    },
+    "highlights": [
+      "The Golden Shoes for Women are a glamorous choice for special occasions. Featuring a golden hue and stylish design, they add a touch of luxury to your outfit.",
+      "Ships in 2 weeks",
+      "7 days return policy"
+    ],
+    "pros": [
+      "Authentic product",
+      "Standard warranty included",
+      "Reliable customer ratings"
+    ],
+    "cons": [
+      "High demand product"
+    ],
+    "bestFor": "The Golden Shoes for Women are a glamorous choice for special occasions. Featuring a golden hue and stylish design, they add a touch of luxury to your outfit.",
+    "imageUrl": "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/thumbnail.webp",
+    "inStock": true,
+    "stockQuantity": 88
+  },
+  {
+    "id": "ext-188",
+    "name": "Pampi Shoes",
+    "category": "Womens-shoes",
+    "brand": "Pampi",
+    "price": 29.99,
+    "currency": "USD",
+    "rating": 3,
+    "reviewCount": 36,
+    "specs": {
+      "brand": "Pampi",
+      "category": "womens-shoes",
+      "warranty": "No warranty",
+      "shipping": "Ships in 1 week"
+    },
+    "highlights": [
+      "Pampi Shoes offer a blend of comfort and style for everyday use. With a versatile design, they are suitable for various casual occasions, providing a trendy and relaxed look.",
+      "Ships in 1 week",
+      "60 days return policy"
+    ],
+    "pros": [
+      "Authentic product",
+      "Standard warranty included",
+      "Reliable customer ratings"
+    ],
+    "cons": [
+      "High demand product"
+    ],
+    "bestFor": "Pampi Shoes offer a blend of comfort and style for everyday use. With a versatile design, they are suitable for various casual occasions, providing a trendy and relaxed look.",
+    "imageUrl": "https://cdn.dummyjson.com/product-images/womens-shoes/pampi-shoes/thumbnail.webp",
+    "inStock": true,
+    "stockQuantity": 49
+  },
+  {
+    "id": "ext-189",
+    "name": "Red Shoes",
+    "category": "Womens-shoes",
+    "brand": "Fashion Express",
+    "price": 34.99,
+    "currency": "USD",
+    "rating": 3.3,
+    "reviewCount": 36,
+    "specs": {
+      "brand": "Fashion Express",
+      "category": "womens-shoes",
+      "warranty": "No warranty",
+      "shipping": "Ships in 1 month"
+    },
+    "highlights": [
+      "The Red Shoes make a bold statement with their vibrant red color. Whether for a party or a casual outing, these shoes add a pop of color and style to your wardrobe.",
+      "Ships in 1 month",
+      "60 days return policy"
+    ],
+    "pros": [
+      "Authentic product",
+      "Standard warranty included",
+      "Reliable customer ratings"
+    ],
+    "cons": [
+      "High demand product"
+    ],
+    "bestFor": "The Red Shoes make a bold statement with their vibrant red color. Whether for a party or a casual outing, these shoes add a pop of color and style to your wardrobe.",
+    "imageUrl": "https://cdn.dummyjson.com/product-images/womens-shoes/red-shoes/thumbnail.webp",
+    "inStock": true,
+    "stockQuantity": 7
+  },
+  {
+    "id": "gen-1792769522928-1",
+    "name": "Artisan Studio Paintings Pro Edition",
+    "category": "Paintings",
+    "brand": "Artisan Collection",
+    "price": 129.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 94,
+    "specs": {
+      "craftsmanship": "Handcrafted premium materials",
+      "quality": "Studio Grade Inspection Passed",
+      "guarantee": "Authenticity Certificate Included"
+    },
+    "highlights": [
+      "Handcrafted authentic paintings designed for durability and elegance",
+      "Individually inspected and verified by master artisans",
+      "Ready for immediate tracked dispatch"
+    ],
+    "pros": [
+      "Premium craftsmanship",
+      "Authentic design",
+      "Customer favorite in category"
+    ],
+    "cons": [
+      "Limited studio production batch"
+    ],
+    "bestFor": "Discerning buyers seeking authentic quality paintings",
+    "imageUrl": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 12
+  },
+  {
+    "id": "gen-1792769522928-2",
+    "name": "Classic Heritage Paintings Standard",
+    "category": "Paintings",
+    "brand": "Heritage Goods",
+    "price": 97.49,
+    "currency": "USD",
+    "rating": 4.6,
+    "reviewCount": 65,
+    "specs": {
+      "edition": "Standard Heritage Series",
+      "materials": "Eco-friendly sustainable build",
+      "shipping": "Free Expedited Delivery"
+    },
+    "highlights": [
+      "High-value everyday paintings with exceptional reliability",
+      "Optimized for affordability and long-term satisfaction",
+      "Includes 30-day satisfaction guarantee"
+    ],
+    "pros": [
+      "Great price-to-quality ratio",
+      "Everyday reliability",
+      "Eco-friendly packaging"
+    ],
+    "cons": [
+      "Essential features focused"
+    ],
+    "bestFor": "Great value option for paintings buyers",
+    "imageUrl": "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 20
   }
 ]
