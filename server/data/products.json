@@ -431,5 +431,95 @@
     "imageUrl": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
     "inStock": true,
     "stockQuantity": 15
+  },
+  {
+    "id": "ph-04",
+    "name": "Samsung Galaxy S24 Ultra",
+    "category": "Smartphones",
+    "brand": "Samsung",
+    "price": 1199.99,
+    "currency": "USD",
+    "rating": 4.8,
+    "reviewCount": 1620,
+    "specs": {
+      "display": "6.8\" Dynamic AMOLED 2X (120Hz, 2600 nits, Anti-Reflective)",
+      "chip": "Snapdragon 8 Gen 3 for Galaxy",
+      "ram": "12 GB",
+      "storage": "256 GB UFS 4.0",
+      "batteryLife": "30 hours video playback (5000 mAh)",
+      "camera": "200MP Quad Telephoto (5x/10x optical zoom) + S-Pen",
+      "weight": "232 g (Titanium Frame)"
+    },
+    "highlights": [
+      "Built-in S-Pen stylus for notes and productivity",
+      "Galaxy AI live translation and Circle to Search",
+      "Anti-reflective flat display with 2600 nits peak outdoor brightness"
+    ],
+    "pros": ["Top-tier zoom cameras", "Built-in S-Pen", "Blazing Snapdragon 8 Gen 3"],
+    "cons": ["High flagship price ($1,199.99)", "Large and heavy form factor"],
+    "bestFor": "Android power users, mobile photography enthusiasts, note-takers",
+    "imageUrl": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 14
+  },
+  {
+    "id": "ph-05",
+    "name": "Samsung Galaxy S24",
+    "category": "Smartphones",
+    "brand": "Samsung",
+    "price": 799.99,
+    "currency": "USD",
+    "rating": 4.7,
+    "reviewCount": 940,
+    "specs": {
+      "display": "6.2\" Dynamic AMOLED 2X (1-120Hz LTPO)",
+      "chip": "Snapdragon 8 Gen 3 for Galaxy",
+      "ram": "8 GB",
+      "storage": "128 GB UFS 4.0",
+      "batteryLife": "28 hours video playback (4000 mAh)",
+      "camera": "50MP Triple Camera with 3x optical zoom",
+      "weight": "167 g (Armor Aluminum)"
+    },
+    "highlights": [
+      "Compact 6.2-inch one-handed flagship design",
+      "7 years of major Android OS and security upgrades",
+      "Galaxy AI photo editing and generative wallpaper"
+    ],
+    "pros": ["Pocket-friendly compact size", "7 years software support", "Vibrant 120Hz display"],
+    "cons": ["Base model has 128GB storage", "25W charging speed"],
+    "bestFor": "Compact flagship lovers and mainstream Samsung users",
+    "imageUrl": "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 20
+  },
+  {
+    "id": "ph-06",
+    "name": "Samsung Galaxy A54 5G",
+    "category": "Smartphones",
+    "brand": "Samsung",
+    "price": 449.99,
+    "currency": "USD",
+    "rating": 4.5,
+    "reviewCount": 1340,
+    "specs": {
+      "display": "6.4\" Super AMOLED (120Hz, 1000 nits)",
+      "chip": "Exynos 1380 (5nm)",
+      "ram": "6 GB",
+      "storage": "128 GB (expandable up to 1TB via microSD)",
+      "batteryLife": "2 days battery (5000 mAh)",
+      "camera": "50MP OIS Main + 12MP Ultra Wide",
+      "weight": "202 g (Gorilla Glass 5)"
+    },
+    "highlights": [
+      "Outstanding value under $450 with 120Hz AMOLED",
+      "Massive 5000 mAh 2-day battery life",
+      "MicroSD card expansion slot"
+    ],
+    "pros": ["Great battery life", "Premium glass back design", "MicroSD card slot support"],
+    "cons": ["No wireless charging", "Moderate gaming performance"],
+    "bestFor": "Budget-conscious shoppers wanting Samsung quality under $450",
+    "imageUrl": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&auto=format&fit=crop&q=80",
+    "inStock": true,
+    "stockQuantity": 28
   }
 ]

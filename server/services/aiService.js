@@ -209,9 +209,9 @@ export async function processAssistantRequest({ message, conversationHistory = [
   const searchRes = runTool('search_products', searchFilter);
   let matchedProducts = searchRes.products || [];
 
-  // If strict search yielded 0, try relaxing brand or RAM if applicable
+  // If strict search yielded 0 with a RAM constraint, check if relaxing RAM finds options
   let relaxedConstraintsNote = '';
-  if (matchedProducts.length === 0 && (intent.minRam || intent.brand)) {
+  if (matchedProducts.length === 0 && intent.minRam && !intent.brand) {
     const fallbackRes = runTool('search_products', {
       category: intent.category,
       maxPrice: intent.maxPrice,
@@ -220,7 +220,7 @@ export async function processAssistantRequest({ message, conversationHistory = [
     if (fallbackRes.products && fallbackRes.products.length > 0) {
       matchedProducts = fallbackRes.products;
       const budgetPart = intent.maxPrice ? ` within your $${intent.maxPrice} budget` : '';
-      relaxedConstraintsNote = ` Showing closest matched options${budgetPart}.`;
+      relaxedConstraintsNote = ` (Showing closest matched configurations${budgetPart}).`;
     }
   }
 

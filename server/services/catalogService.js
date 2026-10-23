@@ -6,14 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const CATALOG_PATH = path.join(__dirname, '..', 'data', 'products.json');
 
-let productsCache = null;
-
 export function loadCatalog() {
-  if (!productsCache) {
-    const raw = fs.readFileSync(CATALOG_PATH, 'utf-8');
-    productsCache = JSON.parse(raw);
-  }
-  return productsCache;
+  const raw = fs.readFileSync(CATALOG_PATH, 'utf-8');
+  return JSON.parse(raw);
 }
 
 export function getAllProducts() {
