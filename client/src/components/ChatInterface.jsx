@@ -5,8 +5,10 @@ import {
   Sparkles,
   Bot,
   User,
-  Wrench,
-  Clock,
+  Volume2,
+  VolumeX,
+  Mic,
+  MicOff,
   Laptop,
   Headphones,
   Monitor,
@@ -52,8 +54,11 @@ export default function ChatInterface({
   comparedIds,
 }) {
   const [inputValue, setInputValue] = useState('');
+  const [speakingIndex, setSpeakingIndex] = useState(null);
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -63,19 +68,107 @@ export default function ChatInterface({
     scrollToBottom();
   }, [messages, isLoading]);
 
+  // Clean up speech synthesis when component unmounts
+  useEffect(() => {
+    return () => {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  // Text to Speech (Voice Output)
+  const toggleSpeech = (text, index) => {
+    if (!('speechSynthesis' in window)) {
+      alert('Speech synthesis is not supported in your browser.');
+      return;
+    }
+
+    if (speakingIndex === index) {
+      window.speechSynthesis.cancel();
+      setSpeakingIndex(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    // Strip markdown formatting for natural voice reading
+    const cleanText = text
+      .replace(/[*_#`~]/g, '')
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+      .trim();
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.onend = () => setSpeakingIndex(null);
+    utterance.onerror = () => setSpeakingIndex(null);
+
+    setSpeakingIndex(index);
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Speech Recognition (Voice Input)
+  const toggleListening = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Speech recognition is not supported in this browser. Please try Google Chrome or Microsoft Edge.');
+      return;
+    }
+
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue(transcript);
+        setIsListening(false);
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+      recognition.start();
+    } catch (err) {
+      console.error('Speech recognition error:', err);
+      setIsListening(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    setSpeakingIndex(null);
     onSendMessage(inputValue.trim());
     setInputValue('');
   };
 
   const handlePromptClick = (promptText) => {
     if (isLoading) return;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    setSpeakingIndex(null);
     onSendMessage(promptText);
   };
 
-  // Only show the hero when conversation has not started yet (just initial 1 message)
   const isInitialState = messages.length <= 1;
 
   return (
@@ -94,7 +187,7 @@ export default function ChatInterface({
                 What are you shopping for?
               </h1>
               <p className="text-sm text-slate-400 leading-relaxed">
-                Describe your constraints in plain English. AgentPay finds grounded products, compares specs, and prepares PayPal checkout.
+                Describe your requirements or talk naturally with voice. AgentPay searches live products, compares specs, and prepares PayPal checkout.
               </p>
             </div>
 
@@ -127,7 +220,7 @@ export default function ChatInterface({
           </div>
         )}
 
-        {/* Message Thread (Starts after Hero or directly) */}
+        {/* Message Thread */}
         {!isInitialState && (
           <div className="space-y-6 pt-2">
             {messages.slice(1).map((msg, index) => (
@@ -143,12 +236,12 @@ export default function ChatInterface({
 
                 {/* Assistant Message */}
                 {msg.role === 'assistant' && (
-                  <div className="flex items-start space-x-3 text-sm">
+                  <div className="flex items-start space-x-3 text-sm group">
                     <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-blue-600 to-sky-400 flex items-center justify-center text-white shrink-0 mt-0.5 shadow-sm">
                       <Bot className="w-4 h-4" />
                     </div>
 
-                    <div className="flex-1 space-y-4 max-w-full">
+                    <div className="flex-1 space-y-3 max-w-full">
                       {/* Assistant Text with clean markdown rendering */}
                       <div className="text-slate-200 leading-relaxed space-y-2 prose-sm prose-invert">
                         <ReactMarkdown
@@ -163,16 +256,41 @@ export default function ChatInterface({
                         </ReactMarkdown>
                       </div>
 
+                      {/* Text to Speech Read Aloud Button */}
+                      <div className="flex items-center space-x-2 pt-0.5">
+                        <button
+                          onClick={() => toggleSpeech(msg.content, index)}
+                          className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-colors ${
+                            speakingIndex === index
+                              ? 'bg-blue-600 text-white shadow-sm'
+                              : 'bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800'
+                          }`}
+                          title={speakingIndex === index ? 'Stop speaking' : 'Read aloud with voice'}
+                        >
+                          {speakingIndex === index ? (
+                            <>
+                              <VolumeX className="w-3.5 h-3.5" />
+                              <span>Stop</span>
+                            </>
+                          ) : (
+                            <>
+                              <Volume2 className="w-3.5 h-3.5 text-sky-400" />
+                              <span>Read Aloud</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+
                       {/* Recommended Products Grid */}
                       {msg.recommendedProducts && msg.recommendedProducts.length > 0 && (
-                        <div className="space-y-2.5 pt-1">
+                        <div className="space-y-2.5 pt-2">
                           <div className="flex items-center justify-between text-xs text-slate-400">
                             <span className="font-semibold text-slate-300 uppercase tracking-wider text-[11px]">
-                              Catalogue Matches ({msg.recommendedProducts.length})
+                              Top Live Matches ({msg.recommendedProducts.length})
                             </span>
                             <span className="text-[11px] text-sky-400 flex items-center space-x-1">
                               <CheckCircle2 className="w-3.5 h-3.5" />
-                              <span>Grounded & in stock</span>
+                              <span>Grounded & verified</span>
                             </span>
                           </div>
 
@@ -213,7 +331,7 @@ export default function ChatInterface({
             </div>
             <div className="flex items-center space-x-2">
               <div className="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin"></div>
-              <span>Searching catalogue, filtering constraints & comparing...</span>
+              <span>Searching live Google Shopping, filtering constraints & comparing...</span>
             </div>
           </div>
         )}
@@ -221,21 +339,36 @@ export default function ChatInterface({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Floating Modern Prompt Input */}
+      {/* Floating Modern Prompt Input with Voice Mic */}
       <div className="pt-2">
         <form
           onSubmit={handleSubmit}
           className="relative flex items-center bg-[#111622] border border-slate-800 focus-within:border-blue-500/80 rounded-2xl shadow-xl transition-all p-1.5"
         >
+          {/* Microphone Voice Button */}
+          <button
+            type="button"
+            onClick={toggleListening}
+            className={`p-2 rounded-xl transition-all mr-1 ${
+              isListening
+                ? 'bg-red-500/20 text-red-400 animate-pulse border border-red-500/40'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+            }`}
+            title={isListening ? 'Listening... click to stop' : 'Click to talk / speech-to-text'}
+          >
+            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+          </button>
+
           <input
             ref={inputRef}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ask anything, e.g. Find me a laptop for programming under $700..."
+            placeholder={isListening ? 'Listening to your voice...' : 'Ask anything or talk with voice, e.g. Find me running shoes...'}
             disabled={isLoading}
-            className="flex-1 bg-transparent px-3.5 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none disabled:opacity-50"
+            className="flex-1 bg-transparent px-2.5 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none disabled:opacity-50"
           />
+
           <button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
@@ -246,8 +379,8 @@ export default function ChatInterface({
           </button>
         </form>
         <div className="flex items-center justify-between text-[10px] text-slate-500 px-2 mt-1.5">
-          <span>Deterministic constraints • Server-verified pricing</span>
-          <span>PayPal Sandbox Orders v2</span>
+          <span>Voice enabled • Live Google Shopping • PayPal Sandbox Orders v2</span>
+          <span>USD Currency</span>
         </div>
       </div>
     </div>

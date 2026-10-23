@@ -197,6 +197,91 @@ export async function processAssistantRequest({ message, conversationHistory = [
     };
   }
 
+  /**
+ * Built-in Conversational Knowledge & AI Brain
+ * Answers questions, tech advice, comparisons, jokes, and general chatting
+ */
+async function getConversationalResponse(message, history = []) {
+  // 1. If GEMINI_API_KEY is configured, call Google Gemini LLM
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [
+                {
+                  text: `You are AgentPay, a friendly and intelligent AI shopping assistant built for the PayPal Hackathon. Help the user conversationally with tech advice, product explanations, or general chat. Keep your tone natural, concise, and helpful.\n\nUser asked: "${message}"`,
+                },
+              ],
+            },
+          ],
+        }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) return text.trim();
+      }
+    } catch (err) {
+      console.warn('Gemini conversational call failed, falling back to built-in brain:', err.message);
+    }
+  }
+
+  // 2. Built-in Conversational Knowledge Base
+  const lower = message.toLowerCase();
+
+  if (/can you talk|are you able to talk|can you speak/i.test(lower)) {
+    return "Yes, I can talk! You can type anything you want or click the **microphone button** 🎙️ to speak your request out loud. You can also click the **Read Aloud** 🔊 button on any message to hear me speak back to you! How can I help you today?";
+  }
+
+  if (/who are you|what are you|what can you do|about you/i.test(lower)) {
+    return "I'm **AgentPay**, an AI shopping and payment agent built for the **PayPal AI Hackathon**.\n\nHere is what I can do for you:\n• Search live products across Google Shopping and top retailers\n• Compare specifications, battery life, and prices side-by-side\n• Help you make smart purchasing decisions within strict budgets\n• Process genuine, user-authorized checkouts via the official **PayPal Sandbox Orders v2 API**!\n\nWhat would you like to search for?";
+  }
+
+  if (/oled.*ips|ips.*oled|difference between oled/i.test(lower)) {
+    return "**OLED vs IPS Displays:**\n\n• **OLED (Organic LED):** Each pixel emits its own light, delivering absolute true blacks, infinite contrast, and ultra-fast response times. Ideal for watching movies, content creation, and high-end gaming.\n• **IPS (In-Plane Switching):** Uses LED backlighting. Delivers consistent viewing angles and accurate color reproduction without burn-in risk. Ideal for coding, text reading, and bright office environments.\n\nWould you like me to find laptops or monitors with OLED or IPS screens?";
+  }
+
+  if (/why 16gb|16 gb.*programming|8gb vs 16gb|ram.*programming/i.test(lower)) {
+    return "**Why 16GB RAM is essential for programming:**\n\nModern development workflows require running heavy IDEs (like VS Code, Android Studio, or Xcode), Docker containers, local Node/Python servers, and multiple browser tabs at the same time. 8GB RAM quickly bottlenecks under multitasking, while 16GB gives you smooth compilation and zero memory swapping.";
+  }
+
+  if (/how does paypal sandbox work|what is sandbox/i.test(lower)) {
+    return "**PayPal Sandbox** is a secure test environment provided by the PayPal Developer Platform. It mirrors the live PayPal checkout process—creating orders, authorizing payments, and capturing funds—using simulated buyer accounts with test money so no real credit card is charged.";
+  }
+
+  if (/joke|make me laugh|funny/i.test(lower)) {
+    return "Why do programmers prefer dark mode?\n\nBecause light attracts bugs! 🐛😄\n\nSpeaking of bugs, is there any tech gadget, headphones, or shoes you'd like me to look up for you?";
+  }
+
+  if (/how are you|how do you do/i.test(lower)) {
+    return "I'm doing great, thank you! I'm fully connected to live Google Shopping search and PayPal Sandbox. What can I help you shop for today?";
+  }
+
+  if (/thank|thanks|appreciate/i.test(lower)) {
+    return "You're very welcome! If you need to search for more products or complete another PayPal checkout, just let me know!";
+  }
+
+  return null;
+}
+  // Check if user is asking a conversational question, tech advice, or general chat
+  const convReply = await getConversationalResponse(message, conversationHistory);
+  if (convReply && !intent.category && !intent.maxPrice && !intent.brand && (!intent.freeQuery || /can you|who are|what is|tell me|how does|why/i.test(message))) {
+    return {
+      message: convReply,
+      intent,
+      toolsExecuted: [],
+      recommendedProducts: [],
+      comparison: null,
+      proposedOrder: null,
+    };
+  }
+
   // Product Discovery & Filtering
   const searchFilter = {
     category: intent.category,
