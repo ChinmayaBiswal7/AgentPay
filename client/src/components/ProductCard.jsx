@@ -16,12 +16,12 @@ export default function ProductCard({ product, onSelectOrder, onToggleCompare, i
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#111622] via-[#111622]/20 to-transparent" />
 
-        {/* Category Pill */}
+        {/* Category & Source Pill */}
         <div className="absolute top-3 left-3 flex items-center space-x-1.5">
-          <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-black/60 backdrop-blur-md text-sky-400 border border-white/10">
-            {product.category}
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-black/70 backdrop-blur-md text-sky-400 border border-white/10">
+            {product.specs?.merchant ? `Google Shopping • ${product.specs.merchant}` : product.category}
           </span>
-          <span className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-black/60 backdrop-blur-md text-slate-300 border border-white/10">
+          <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-black/70 backdrop-blur-md text-slate-300 border border-white/10">
             {product.brand}
           </span>
         </div>

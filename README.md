@@ -1,38 +1,47 @@
-# 🛍️ AgentPay — AI-Powered Shopping & PayPal Payment Agent
+# 🛍️ AgentPay — Autonomous AI Shopping & PayPal Checkout Agent
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-12%2F12%20Passing-brightgreen.svg)](server/tests)
 [![PayPal](https://img.shields.io/badge/PayPal-Orders_v2_Sandbox-003087?logo=paypal)](https://developer.paypal.com/)
+[![Google Shopping](https://img.shields.io/badge/Discovery-Live_Google_Shopping-4285F4?logo=google)](https://serper.dev)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev/)
-[![NodeJS](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)](https://nodejs.org/)
+[![NodeJS](https://img.shields.io/badge/Node.js-Express_v24-339933?logo=node.js)](https://nodejs.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC?logo=tailwindcss)](https://tailwindcss.com/)
 
-> Built for the **Build What's Next with PayPal and AI Hackathon**.
+> **Submission for the "Build What's Next with PayPal and AI" Hackathon.**
 
-AgentPay is an autonomous, explainable AI shopping assistant that bridges the gap between natural language product discovery and user-authorized checkout through the official **PayPal Developer Platform and Sandbox environment**.
+**AgentPay** is an autonomous, explainable AI shopping agent that bridges the gap between natural language product discovery and user-authorized, server-verified checkout through the official **PayPal Orders v2 API and Sandbox environment**.
 
-Unlike typical chatbots that merely generate conversational answers without an actionable purchasing path, **AgentPay** extracts buyer constraints, executes deterministic catalogue search and comparison tools, calculates trusted pricing server-side, and initiates genuine **PayPal Orders v2** transactions.
+Unlike standard shopping chatbots that stop at generic advice or hallucinate non-existent inventory, AgentPay combines **real-time global web product search (Google Shopping via Serper)**, **deterministic constraint enforcement (RAM, budget ceilings, negative accessory filtering)**, **in-depth hardware architectural breakdowns**, **hands-free voice interaction**, and an authentic **PayPal Sandbox checkout pipeline** with strict server-side price authority and idempotent payment capture.
 
 ---
 
 ## 🌟 Key Features
 
-1. **Natural Language Intent Extraction**: Understands user criteria such as category, strict budget ceilings, RAM requirements, brands, and intended use-cases (e.g. programming, gaming, focus).
-2. **Deterministic & Grounded Recommendations**: Prevents AI hallucination. The AI is strictly constrained to catalogue data; products exceeding budget limits or lacking inventory are deterministically filtered.
-3. **Controlled Tool Architecture**:
-   - `search_products(filters)`: Executes query and specification matching.
-   - `get_product_details(productId)`: Retrieves full specifications, pros, cons, and stock.
-   - `compare_products(productIds)`: Generates side-by-side spec and value comparisons.
-   - `prepare_order_summary(items)`: Computes server-calculated subtotals, tax, and totals in USD.
-4. **Transparent Tool Execution Logging**: Displays a live badge showing tools executed, arguments passed, and latency in milliseconds.
-5. **Interactive Side-by-Side Comparison**: Visually compares competing items across prices, processors, RAM, battery life, and ratings.
-6. **Zero-Trust Server-Side Calculation**: Client-supplied prices and totals are never trusted. All calculations are executed on the backend.
-7. **Genuine PayPal Sandbox Checkout**:
-   - Uses the official `@paypal/react-paypal-js` SDK.
-   - Backend creates orders via PayPal Orders v2 (`intent: CAPTURE`).
-   - Secure server-side capture via `POST /v2/checkout/orders/{id}/capture`.
-   - Complete verification: status is `COMPLETED`, currency is `USD`, and amounts match expected order totals.
-8. **Idempotency & Duplicate Protection**: Prevents double-billing and ensures idempotent order capture.
-9. **Verified Transaction Receipts**: Instant receipt modal with PayPal Order ID, Capture ID, Payer details, timestamp, and amount.
+### 1. 🔍 Infinite Live Product Discovery
+- **Real-Time Google Shopping:** Powered by the Serper API, queries live web commerce to fetch real prices, merchant names (Amazon, Walmart, Best Buy, etc.), ratings, and product images.
+- **Negative Accessory Filtering:** Intelligent regex filtering prevents accessory clutter (e.g., searches for "iPhone 16" or "Samsung Galaxy" will not return cases, screen protectors, or cables unless explicitly requested).
+- **Grounded Verification Fallback:** Paired with an internal curated catalog and in-memory 5-minute TTL caching for ultra-fast, resilient browsing.
+
+### 2. 🧠 Deterministic Constraint Enforcement & AI Tool Registry
+- **Zero Hallucination:** Eliminates models that recommend products outside user requirements.
+- **Strict Budget Ceilings & Hardware Gates:** A user's maximum price ceiling and minimum hardware specs (e.g., minimum 16 GB RAM) are strictly enforced in code.
+- **AI Tool Calling Architecture:**
+  - `search_products(filters)`: Executes query, category, and spec matching across live web and grounded catalogue.
+  - `get_product_details(productId)`: Generates granular technical breakdowns (processor micro-architecture, memory bus, thermal design, pros/cons).
+  - `compare_products(productIds)`: Compiles structured side-by-side spec comparison tables.
+  - `prepare_order_summary(items)`: Computes server-verified line items, taxes, and order proposals.
+
+### 3. 🎙️ Natural Voice & Conversational Intelligence
+- **Speech-to-Text (Microphone):** Low-latency voice queries powered by the native Web Speech API.
+- **Read-Aloud (Text-to-Speech):** Hear the agent's product explanations and technical recommendations read aloud.
+- **General & Deep Q&A Brain:** Ask hardware comparison questions or architectural advice with deep, contextual explanations.
+
+### 4. 💳 Official PayPal Orders v2 Sandbox Integration
+- **Server Price Authority:** Client-supplied prices are strictly ignored. The Express backend calculates the exact line-item total and 5% tax before issuing PayPal order payloads.
+- **Smart Payment Buttons:** Powered by `@paypal/react-paypal-js` for a native, trusted checkout experience.
+- **Idempotent Server-Side Capture:** POST `/v2/checkout/orders/{id}/capture` verifies order status `COMPLETED`, checks currency (`USD`), validates captured amounts, and prevents accidental double charges.
+- **Verified Transaction Receipts:** Generates an immediate post-payment receipt displaying the verified PayPal Order ID, Capture ID, Payer info, and timestamp.
 
 ---
 
@@ -41,65 +50,72 @@ Unlike typical chatbots that merely generate conversational answers without an a
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Buyer as Buyer (User)
-    participant Client as AgentPay Web Client
-    participant Server as Express Backend
-    participant AI as AI Agent Engine
-    participant Catalog as Grounded Catalogue
+    actor Buyer as Shopper
+    participant UI as AgentPay Web Client
+    participant Server as Express Server
+    participant Discovery as Google Shopping (Serper)
+    participant AI as AI Engine & Tool Registry
     participant PayPal as PayPal Sandbox API
 
-    Buyer->>Client: "Find me a laptop for programming under $700 with at least 16GB RAM"
-    Client->>Server: POST /api/assistant/chat
-    Server->>AI: Extract intent & invoke tools
-    AI->>Catalog: search_products(maxPrice: 700, minRam: 16, category: Laptops)
-    Catalog-->>AI: Matched grounded laptops
-    AI->>Catalog: compare_products([lap-01, lap-02, lap-03])
-    AI-->>Server: Formatted recommendation + tool logs
-    Server-->>Client: Message + Product Cards + Comparison Table
-    Buyer->>Client: Clicks "Select & Review Order"
-    Client->>Server: POST /api/orders/summary (verifies price)
-    Server-->>Client: Server-calculated breakdown ($649.99 + 5% tax = $682.49 USD)
-    Buyer->>Client: Ticks authorization checkbox & clicks PayPal Button
-    Client->>Server: POST /api/orders
+    Buyer->>UI: Voice or text: "Laptop for coding under $700 with 16GB RAM"
+    UI->>Server: POST /api/assistant/chat
+    Server->>AI: Extract constraints (maxPrice: 700, minRam: 16)
+    AI->>Discovery: Query live Google Shopping / Grounded Catalogue
+    Discovery-->>AI: Real-time products + specs
+    AI-->>Server: Formatted recommendation + comparison cards
+    Server-->>UI: Return message + interactive product cards
+
+    Buyer->>UI: Clicks "Select & Review Order"
+    UI->>Server: POST /api/orders/summary
+    Server-->>UI: Server-verified breakdown ($649.99 + 5% tax = $682.49 USD)
+
+    Buyer->>UI: Confirms authorization & clicks PayPal Button
+    UI->>Server: POST /api/orders
     Server->>PayPal: POST /v2/checkout/orders (intent: CAPTURE)
-    PayPal-->>Server: Order ID (status: CREATED)
-    Server-->>Client: Order ID
-    Client->>PayPal: PayPal Smart Button Popup (Buyer approves in Sandbox)
-    PayPal-->>Client: onApprove (Buyer authorized)
-    Client->>Server: POST /api/orders/{orderId}/capture
+    PayPal-->>Server: 201 Created (Order ID)
+    Server-->>UI: Order ID
+    UI->>PayPal: Smart Button launches PayPal Sandbox modal
+    Buyer->>PayPal: Authenticates & approves Sandbox transaction
+    PayPal-->>UI: onApprove trigger
+
+    UI->>Server: POST /api/orders/{orderId}/capture
     Server->>PayPal: POST /v2/checkout/orders/{orderId}/capture
-    PayPal-->>Server: 201 Created (status: COMPLETED, capture ID)
-    Server->>Server: Verify amount, currency & idempotent storage
-    Server-->>Client: Verified receipt (Order ID, Capture ID, Payer Info)
-    Client-->>Buyer: Displays Verified Confirmation Receipt
+    PayPal-->>Server: Status: COMPLETED + Capture ID
+    Server->>Server: Idempotent verification of currency & amount
+    Server-->>UI: Verified transaction receipt
+    UI-->>Buyer: Displays verified receipt with PayPal Order & Capture IDs
 ```
 
 ---
 
-## 🛠️ Tech Stack & Integrations
+## 🛠️ Tech Stack
 
-- **PayPal Developer Platform**: Orders v2 API (`/v2/checkout/orders`), OAuth2 Client Credentials authentication, Capture endpoint, PayPal JavaScript SDK.
-- **Backend**: Node.js v24, Express, native ES modules.
-- **Frontend**: React 18, Vite, Tailwind CSS, Lucide React icons, `@paypal/react-paypal-js`.
-- **AI Engine**: Hybrid LLM / deterministic NLP rule-and-tool calling engine with transparent execution telemetry.
-- **Testing**: Node.js native test runner (`node --test`), automated integration tests against live PayPal Sandbox.
+| Layer | Technologies |
+| :--- | :--- |
+| **Payment Gateway** | PayPal Developer Platform, Orders v2 API, OAuth2 Client Credentials, `@paypal/react-paypal-js` |
+| **Backend** | Node.js (v24), Express, ES Modules, Native Fetch |
+| **Product Discovery** | Serper.dev (Google Shopping REST API), Grounded JSON catalog, 5-minute TTL cache |
+| **Frontend** | React 18, Vite, Tailwind CSS, Lucide Icons |
+| **Voice & Audio** | Native Web Speech API (SpeechRecognition & SpeechSynthesis) |
+| **Testing** | Node.js native test runner (`node --test`), automated integration tests against live PayPal Sandbox |
 
 ---
 
 ## 📋 Prerequisites
 
-- **Node.js**: v18 or higher (tested on Node.js v24)
-- **npm**: v9 or higher
+- **Node.js**: v18.0.0 or higher (tested on Node.js v24)
+- **npm**: v9.0.0 or higher
 - A **PayPal Developer Account** with Sandbox credentials ([developer.paypal.com](https://developer.paypal.com/))
+- *(Optional)* A **Serper API Key** ([serper.dev](https://serper.dev)) for live Google Shopping searches (2,500 free queries)
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### 1. Clone the repository
+### 1. Clone the Repository
 ```bash
-git clone <repo-url>
-cd "Pay Pal"
+git clone https://github.com/ChinmayaBiswal7/AgentPay.git
+cd AgentPay
 ```
 
 ### 2. Configure Environment Variables
@@ -108,18 +124,21 @@ Copy `.env.example` to `.env`:
 cp .env.example .env
 ```
 
-Edit `.env` and fill in your PayPal Sandbox credentials:
+Edit `.env` and provide your credentials:
 ```env
-# PayPal Sandbox Credentials
+# PayPal Sandbox Credentials (developer.paypal.com)
 PAYPAL_CLIENT_ID=your_paypal_sandbox_client_id_here
 PAYPAL_CLIENT_SECRET=your_paypal_sandbox_client_secret_here
 PAYPAL_BASE_URL=https://api-m.sandbox.paypal.com
 
-# Server Port
+# Server Configuration
 PORT=5000
 APP_BASE_URL=http://localhost:5000
 
-# AI Provider (Optional: auto, gemini, or openai)
+# Optional: Real-Time Google Shopping API (serper.dev)
+SERPER_API_KEY=your_serper_api_key_here
+
+# Optional: AI Provider (auto, gemini, or openai)
 AI_PROVIDER=auto
 ```
 
@@ -130,7 +149,7 @@ npm --prefix client install
 ```
 
 ### 4. Run the Automated Test Suite
-Verify catalogue filters, budget exclusions, intent parsing, and live PayPal Sandbox API communication:
+Run the 12 end-to-end unit and integration tests (including live PayPal Sandbox OAuth & Orders v2 tests):
 ```bash
 npm test
 ```
@@ -141,56 +160,48 @@ Expected output:
 ✔ should execute tools and return grounded catalog recommendations within constraints
 ✔ should prepare order proposal if checkout action is triggered
 ✔ should strictly exclude products exceeding budget ceiling
+✔ should filter by minimum RAM requirement
+✔ should calculate server-side order summary and reject invalid inputs
 ✔ should authenticate with PayPal Sandbox and acquire OAuth Bearer token
 ✔ should create an authentic order on PayPal Sandbox with server-calculated price
+✔ should fail cleanly when invalid product is ordered
 ℹ tests 12 passed
 ```
 
-### 5. Start the Application
+### 5. Build and Launch the Application
 
-#### Production Mode (Single port):
 ```bash
+# Build the React frontend
 npm run build:client
-npm start
-```
-Open **`http://localhost:5000`** in your browser.
 
-#### Development Mode (Hot Reloading):
-In terminal 1 (Backend):
-```bash
+# Start the unified Express server
 npm start
 ```
-In terminal 2 (Frontend with Vite HMR):
-```bash
-npm run client
-```
-Open **`http://localhost:5173`** in your browser.
+Visit **`http://localhost:5000`** in your browser.
 
 ---
 
-## 💳 Testing with PayPal Sandbox Accounts
+## 💳 Testing the PayPal Sandbox Flow
 
-To complete a test transaction:
-1. Log in to [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/accounts).
-2. Go to **Testing Tools** > **Sandbox Accounts**.
-3. Copy the email and password for a **Buyer** (Personal) account.
-4. In AgentPay:
+1. Go to the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/accounts) > **Testing Tools** > **Sandbox Accounts**.
+2. Note the email and password of a default **Personal (Buyer)** Sandbox account.
+3. In AgentPay:
    - Ask: *"Find me a laptop for programming under $700 with at least 16 GB RAM and good battery life."*
-   - Click **"Select & Review Order"** on the Lenovo ThinkBook or Acer Aspire.
-   - Review the server-calculated breakdown and check the authorization checkbox.
+   - Click **"Review Order"** on the Lenovo ThinkBook 15 or Acer Aspire 5.
+   - Verify the server-calculated breakdown and check the authorization checkbox:
+     > *"I authorize AgentPay to create a PayPal Sandbox order for $682.49 USD. I understand no real money will be charged."*
    - Click the yellow **PayPal Checkout** button.
-   - Enter your Sandbox Buyer credentials in the PayPal modal and click **Complete Purchase**.
-   - Watch the verified receipt modal appear with your verified PayPal Order ID and Capture ID!
+   - Log in with your Sandbox Buyer account and click **Complete Purchase**.
+   - Review your verified receipt containing the authentic **PayPal Order ID** and **Capture ID**!
 
 ---
 
-## 🔒 Security Best Practices Implemented
+## 🔒 Security & Industry Standards
 
-- **Server-Side Secret Storage**: `PAYPAL_CLIENT_SECRET` is never transmitted to the browser or bundled in frontend client builds.
-- **Server Price Authority**: Product costs, tax, and order totals are calculated exclusively by the backend using server-side catalog data.
-- **Client Amounts Rejected**: Even if an attacker manipulates client state, the backend overrides and rejects any discrepancy.
-- **Post-Capture Verification**: Payment is only deemed successful after the backend receives and validates status `COMPLETED` directly from PayPal's capture endpoint.
-- **Idempotency Protection**: Repeat capture requests for the same order ID return the recorded receipt without duplicate billing.
+- **Zero-Trust Pricing:** Client-submitted prices are never accepted. All subtotals and taxes are re-computed and validated on the backend.
+- **Server-Isolated Secrets:** `PAYPAL_CLIENT_SECRET` and `SERPER_API_KEY` are kept exclusively in server environment variables and never exposed to client bundles or repository commits.
+- **Capture Idempotency:** The backend tracks order states to prevent duplicate charges from network retries or repeated user clicks.
+- **Safe Sandbox Separation:** The app clearly indicates test transactions and avoids misleading users regarding real delivery or payment deductions.
 
 ---
 
